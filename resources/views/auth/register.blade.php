@@ -178,6 +178,7 @@
         <div class="uk-width-expand@m">
             <div class="form-login">
                 <div class="form-login__social">
+                    <a href="{{route('auth.google')}}">
                     <button class="gsi-material-button">
                         <div class="gsi-material-button-state"></div>
                         <div class="gsi-material-button-content-wrapper">
@@ -194,6 +195,7 @@
                             <span style="display: none;">Sign up with Google</span>
                         </div>
                     </button>
+                    </a>
                 </div>
                 <div class="form-login__box">
                     <div class="uk-heading-line uk-text-center"><span>or with Email</span></div>
