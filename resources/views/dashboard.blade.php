@@ -119,7 +119,6 @@
             </div>
         </div>
     </div>
-
     <div class="uk-width-1-1">
         <h3 class="uk-text-lead">Best Selling Games</h3>
         <div class="js-store">
@@ -156,10 +155,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 @stop
