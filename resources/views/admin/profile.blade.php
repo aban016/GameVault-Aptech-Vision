@@ -1,5 +1,7 @@
 @extends('layouts.admindefault')
 
+@section('title', 'Profile')
+
 @section('content')
 <div class="box-heading">
     <div class="box-title">

@@ -5,10 +5,15 @@ use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
+use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
 Route::get('/', function () {
-    return view('dashboard');
+    $bestGames = Game::where('rating', '>', 4)->get();
+    return view('dashboard', compact('bestGames'));
 });
 
 Route::get('/dashboard', function () {
@@ -28,6 +33,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::patch('admin/profile', [AdminController::class, 'profileUpdate'])->name('admin.profile.update');
     Route::get('admin/games', [GamesController::class, 'index'])->name('admin.games');
+    Route::get('admin/games/create', [GamesController::class, 'create'])->name('admin.games.create');
     Route::get('admin/users', [UsersController::class, 'index'])->name('admin.users');
 });
 

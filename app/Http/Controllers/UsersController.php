@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -12,7 +14,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::leftJoin('sessions', 'users.id', '=', 'sessions.user_id')
+            ->select('users.id', 'users.name', 'users.email', 'users.role', 'users.created_at', DB::raw('MAX(sessions.last_activity) as last_activity'))
+            ->groupBy('users.id', 'users.name', 'users.email', 'users.role', 'users.created_at')
+            ->orderBy('users.created_at', 'desc')
+            ->get();
+
         return view('admin.users', compact('users'));
     }
 
