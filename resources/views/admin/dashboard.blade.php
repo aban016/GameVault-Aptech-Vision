@@ -24,7 +24,7 @@
           <div class="card-style-1 hover-up">
             <div class="card-image"> <img src="assets/imgs/page/dashboard/open-file.svg" alt="jobBox"></div>
             <div class="card-info text-end">
-                <h3>2356
+                <h3>{{ $totalMessages }}
                 </h3>
               <p class="color-text-paragraph-2">New Messages</p>
             </div>
@@ -34,7 +34,7 @@
           <div class="card-style-1 hover-up">
             <div class="card-image"> <img src="assets/imgs/page/dashboard/doc.svg" alt="jobBox"></div>
             <div class="card-info text-end">
-                <h3>254
+                <h3>{{ $totalGames }}
                 </h3>
               <p class="color-text-paragraph-2">Total Games</p>
             </div>
@@ -44,7 +44,7 @@
           <div class="card-style-1 hover-up">
             <div class="card-image"> <img src="assets/imgs/page/dashboard/man.svg" alt="jobBox"></div>
             <div class="card-info text-end">
-                <h3>548
+                <h3>{{ $totalUsers }}
                 </h3> 
               <p class="color-text-paragraph-2">Our Users</p>
             </div>

@@ -56,8 +56,7 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="box-view-type"><a class="view-type" href="my-job-list.html"><img src="assets/imgs/template/icons/icon-list.svg" alt="jobBox"></a><a class="view-type" href="my-job-grid.html"><img src="assets/imgs/template/icons/icon-grid-hover.svg" alt="jobBox"></a></div>
-                  </div>
+                   </div>
                 </div>
               </div>
             </div>

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Contact;
+use App\Models\Game;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -10,7 +14,10 @@ use Illuminate\Support\Facades\Redirect;
 class AdminController extends Controller
 {
     public function index(){
-        return view('admin.dashboard');
+        $totalMessages = Contact::where('is_new', 'true')->count();
+        $totalUsers = User::where('role', 'user')->count();
+        $totalGames = Game::count(); 
+        return view('admin.dashboard', compact('totalUsers', 'totalGames', 'totalMessages'));
     }
 
     public function profile(Request $request){

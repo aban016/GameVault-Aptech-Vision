@@ -14,6 +14,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" type="image/x-icon" href="  assets/imgs/template/favicon.svg">
   <link href="assets/css/style.css?version=2.0" rel="stylesheet">
+  <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
   <title>@yield('title') - Admin - Play Hub</title>
 </head>
 
@@ -121,6 +122,8 @@
       </footer>
     </div>
   </main>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
   <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
   <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
@@ -136,6 +139,8 @@
   <script src="assets/js/plugins/charts/Animated.js"></script>
   <script src="assets/js/plugins/armcharts5-script.js"></script>
   <script src="assets/js/main.js?v=1.0"></script>
+
+  @stack('scripts')
 </body>
 
 </html>
