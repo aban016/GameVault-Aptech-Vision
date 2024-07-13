@@ -24,6 +24,12 @@ class UsersController extends Controller
         return view('admin.users', compact('users'));
     }
 
+    public function dashboard(){
+        $categories = Category::where('is_active', true)->get();
+        $bestGames = Game::where('rating', '>', 4)->get();
+        return view('dashboard', compact('bestGames', 'categories'));
+    }
+
     public function profile(Request $request)
     {
         $user = $request->user();

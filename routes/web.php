@@ -10,12 +10,10 @@ use App\Models\Category;
 use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect('/dashboard');
-});
 // Route::get('/', function () {
-//     return view('dashboard');
+//     return redirect('dashboard');
 // });
+Route::get('/', [UsersController::class, 'dashboard']);
 
 // Route::get('/dashboard', function () {
 //     $categories = Category::where('is_active', true)->get();
@@ -24,11 +22,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        $categories = Category::where('is_active', true)->get();
-        $bestGames = Game::where('rating', '>', 4)->get();
-        return view('dashboard', compact('bestGames', 'categories'));
-    })->name('dashboard');
+    Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
 
 
     Route::get('user/profile', [UsersController::class, 'profile'])->name('user.profile');
