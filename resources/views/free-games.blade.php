@@ -1,5 +1,7 @@
 @extends('layouts.default')
 
+@section('title', 'Free Games')
+
 @section('content')
 <div class="uk-grid" data-uk-grid>
     <div class="uk-width-1-1">

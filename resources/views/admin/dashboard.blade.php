@@ -50,6 +50,16 @@
             </div>
           </div>
         </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-4 col-sm-6">
+          <div class="card-style-1 hover-up">
+            <div class="card-image"> <img src="assets/imgs/page/dashboard/doc.svg" alt="jobBox"></div>
+            <div class="card-info text-end">
+                <h3>{{ $totalCategory }}
+                </h3>
+              <p class="color-text-paragraph-2">Total Categories</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

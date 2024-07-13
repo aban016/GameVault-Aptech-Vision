@@ -11,14 +11,14 @@
     <meta name="HandheldFriendly" content="true">
     <meta name="format-detection" content="telephone=no">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/libs.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/fonts/simple-line-icons/css/simple-line-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
-    <script src="assets/js/libs.js"></script>
-    <script src="assets/js/main.js"></script>
+    <link rel="shortcut icon" href="{{ asset('user/assets/img/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('user/assets/css/libs.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/assets/fonts/simple-line-icons/css/simple-line-icons.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;display=swap" rel="stylesheet">
+    <script src="{{ asset('user/assets/js/libs.js') }}"></script>
+    <script src="{{ asset('user/assets/js/main.js') }}"></script>
 
 <style>
 

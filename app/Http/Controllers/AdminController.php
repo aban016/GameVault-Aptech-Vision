@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Game;
 use App\Models\Message;
@@ -16,8 +17,9 @@ class AdminController extends Controller
     public function index(){
         $totalMessages = Contact::where('is_new', 'true')->count();
         $totalUsers = User::where('role', 'user')->count();
-        $totalGames = Game::count(); 
-        return view('admin.dashboard', compact('totalUsers', 'totalGames', 'totalMessages'));
+        $totalGames = Game::count();
+        $totalCategory = Category::count();
+        return view('admin.dashboard', compact('totalUsers', 'totalGames', 'totalMessages', 'totalCategory'));
     }
 
     public function profile(Request $request){

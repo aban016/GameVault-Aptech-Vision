@@ -1,9 +1,9 @@
 @extends('layouts.default')
 
-@section('title', 'Watch')
+@section('title', 'Wallet')
 
 @section('content')
 
-<h1>Watch</h1>
+<h1>Wallet</h1>
 
 @stop

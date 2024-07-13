@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,49 +24,35 @@ class UsersController extends Controller
         return view('admin.users', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function profile(Request $request)
     {
-        //
+        $user = $request->user();
+        
+        $createdDate = $user->created_at->format('F d, Y');
+
+        return view('profile', compact('user', 'createdDate'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function favourite(){
+        return view('wishlist');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    public function wallet(){
+        return view('wallet');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+    public function freeGames(){
+        return view('free-games');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function premiumGames(){
+        return view('premium-games');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function gameplays(){
+        return view('watch');
+    }
+
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);

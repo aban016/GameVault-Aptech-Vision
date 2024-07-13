@@ -1,6 +1,6 @@
-
-
 @extends('layouts.default')
+
+@section('title', 'Home')
 
 @section('content')
 
@@ -66,58 +66,19 @@
         </div>
     </div>
     <div class="uk-width-1-3@l uk-width-3-3@m uk-width-3-3@s">
-        <div class="js-trending">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="game-card --horizontal">
-                            <div class="game-card__box">
-                                <div class="game-card__media"><a href="10_game-profile.html"><img src="assets/img/trending2.jpg" alt="Alien Games" /></a></div>
-                                <div class="game-card__info"><a class="game-card__title" href="10_game-profile.html"> Cyber Games</a>
-                                    <div class="game-card__genre">Warring factions have brought the Origin System to the brink of destruction.</div>
-
-                                    <div class="game-card__bottom">
-                                        <a class="uk-button-read-more" href="16_post.html">View More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="game-card --horizontal">
-                            <div class="game-card__box">
-                                <div class="game-card__media"><a href="10_game-profile.html"><img src="assets/img/trending3.jpg" alt="Warframe" /></a></div>
-                                <div class="game-card__info"><a class="game-card__title" href="10_game-profile.html">Game of Thrones</a>
-                                    <div class="game-card__genre">Warring factions have brought the Origin System to the brink of destruction.</div>
-                                    <div class="game-card__bottom">
-                                        <a class="uk-button-read-more" href="16_post.html">View More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="game-card --horizontal">
-                            <div class="game-card__box">
-                                <div class="game-card__media"><a href="10_game-profile.html"><img src="assets/img/trending.jpg" alt="Warframe" /></a></div>
-                                <div class="game-card__info"><a class="game-card__title" href="10_game-profile.html"> Historical Games</a>
-                                    <div class="game-card__genre">Warring factions have brought the Origin System to the brink of destruction.</div>
-                                    <div class="game-card__bottom">
-                                        <a class="uk-button-read-more" href="16_post.html">View More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <section class="widget section-sidebar bg-light">
+            <h3 class="widget-title bg-dark"><i class="ic icon-list"></i>Categories</h3>
+            <div class="widget-content">
+                <div class="widget-inner">
+                    <ul class="widget-list list list-mark-4">
+                        @foreach($categories as $category)
+                        <li class="widget-list__item"><a class="widget-list__link" href="16_post.html"> {{ $category->category }}</a></li>
+                        @endforeach
+                    </ul>
 
                 </div>
-                <div class="swipper-nav">
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-                <div class="swiper-pagination"></div>
             </div>
-        </div>
+        </section>
     </div>
     <div class="uk-width-1-1">
         <h3 class="uk-text-lead">Best Selling Games</h3>

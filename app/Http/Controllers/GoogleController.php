@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -26,10 +27,12 @@ class GoogleController extends Controller
                 'name' => $user->name,
                 'google_id' => $user->id,
                 'password' => encrypt('12345678'),
+                'profile_pic' => $user->avatar,
             ]);
          
             Auth::login($newUser);
         }
+        
         return redirect('/dashboard');
     }
 }

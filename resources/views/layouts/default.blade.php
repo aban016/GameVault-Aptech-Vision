@@ -6,34 +6,27 @@
 
 <head>
     <meta charset="utf-8">
-    <!-- <title>Play Hub - Join now and play mighty games!</title> -->
+    <title>@yield('title') - Play Hub - Join now and play mighty games!</title>
     <meta content="Templines" name="author">
     <meta content="TeamHost" name="description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="HandheldFriendly" content="true">
     <meta name="format-detection" content="telephone=no">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/libs.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/fonts/simple-line-icons/css/simple-line-icons.css">
+    <link rel="shortcut icon" href="{{ asset('user/assets/img/favicon.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('user/assets/css/libs.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/assets/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('user/assets/fonts/simple-line-icons/css/simple-line-icons.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;display=swap" rel="stylesheet">
-    <script src="assets/js/libs.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="{{ asset('user/assets/js/libs.js') }}"></script>
+    <script src="{{ asset('user/assets/js/main.js') }}"></script>
 
 
 </head>
 
 
 <body class="page-community">
-
-    <input id="toggle" type="checkbox">
-    <script type="text/javascript">
-        document.getElementById("toggle").addEventListener("click", function() {
-            document.getElementsByTagName('body')[0].classList.toggle("dark-theme");
-        });
-    </script>
 
     <!-- Loader-->
     <div id="page-preloader">
@@ -84,11 +77,33 @@
 
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
 
-                        @if (Route::has('login'))
+                            @if (Route::has('login'))
                             <li>
                                 @auth
                                 <a href="#">
-                                    <img src="assets/img/profile.png" alt="profile" class="profile">
+                                    @php
+                                    $profilePic = Auth::user()->profile_pic;
+                                    $profilePicUrl = '';
+
+                                    if ($profilePic) {
+                                    if (Str::startsWith($profilePic, 'data:image')) {
+                                    // Base64 encoded image
+                                    $profilePicUrl = $profilePic;
+                                    } elseif (filter_var($profilePic, FILTER_VALIDATE_URL)) {
+                                    // URL (from Google OAuth)
+                                    $profilePicUrl = $profilePic;
+                                    } else {
+                                    // Local storage path
+                                    $profilePicUrl = asset('storage/' . $profilePic);
+                                    }
+                                    } else {
+                                    // Default profile picture
+                                    $profilePicUrl = asset('user/assets/img/profile.png');
+                                    }
+                                    @endphp
+
+                                    <img src="{{ $profilePicUrl }}" alt="profile" class="profile">
+
                                     Hi, {{ Auth::user()->name }}
                                     <span uk-icon="icon: triangle-down"></span>
                                 </a>
@@ -133,20 +148,20 @@
 
                 <div class="sidebar-box">
                     <ul class="uk-nav">
-                        <li class="uk-active"><a href="03_home.html"><i class="ico_home"></i><span>Home</span></a></li>
+                        <li class="{{ request()->routeIs('dashboard') ? 'uk-active' : '' }}"><a href="{{ route('dashboard') }}"><i class="ico_home"></i><span>Home</span></a></li>
                         @auth
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Account</span></li>
-                        <li><a href="{{ route('profile.edit') }}"><i class="ico_profile"></i><span>{{ __('Profile') }}</span></a></li>
-                        <li><a href="05_favourites.html"><i class="ico_favourites"></i><span class="uk-nav-text">Favourites<span class="count">15</span></span></a></li>
-                        <li><a href="08_wallet.html"><i class="ico_wallet"></i><span>Wallet</span></a></li>
+                        <li class="{{ request()->routeIs('user.profile') ? 'uk-active' : '' }}"><a href="{{ route('user.profile') }}"><i class="ico_profile"></i><span>{{ __('Profile') }}</span></a></li>
+                        <li class="{{ request()->routeIs('user.favourite') ? 'uk-active' : '' }}"><a href="{{ route('user.favourite') }}"><i class="ico_favourites"></i><span class="uk-nav-text">Favourites</span></a></li>
+                        <li class="{{ request()->routeIs('user.wallet') ? 'uk-active' : '' }}"><a href="{{ route('user.wallet') }}"><i class="ico_wallet"></i><span>Wallet</span></a></li>
                         @endauth
 
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Store</span></li>
-                        <li><a href="09_games-store.html"><i class="ico_store"></i><span>Free Games</span></a></li>
-                        <li><a href="11_market.html"><i class="ico_market"></i><span>Premium Games</span></a></li>
+                        <li  class="{{ request()->routeIs('freeGames') ? 'uk-active' : '' }}"><a href="{{ route('freeGames') }}"><i class="ico_store"></i><span>Free Games</span></a></li>
+                        <li class="{{ request()->routeIs('premiumGames') ? 'uk-active' : '' }}"><a href="{{ route('premiumGames') }}"><i class="ico_market"></i><span>Premium Games</span></a></li>
 
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Others</span></li>
-                        <li><a href="12_streams.html"><i class="ico_streams"></i><span>GamePlays</span></a></li>
+                        <li class="{{ request()->routeIs('gameplays') ? 'uk-active' : '' }}"><a href="{{ route('gameplays') }}"><i class="ico_streams"></i><span>GamePlays</span></a></li>
                     </ul>
                 </div>
             </aside>

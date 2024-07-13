@@ -12,8 +12,8 @@
   <meta name="description" content="Index page">
   <meta name="keywords" content="index, page">
   <meta name="author" content="">
-  <link rel="shortcut icon" type="image/x-icon" href="  assets/imgs/template/favicon.svg">
-  <link href="assets/css/style.css?version=2.0" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin/assets/imgs/template/favicon.svg') }}">
+  <link href="{{ asset('admin/assets/css/style.css?version=2.0') }}" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
   <title>@yield('title') - Admin - Play Hub</title>
 </head>
@@ -57,6 +57,9 @@
                 </li>
                 <li> <a class="dashboard2" href="{{route('admin.games')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Games List</span></a>
                 </li>
+                </li>
+                <li> <a class="dashboard2" href="{{route('admin.categories')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Categories</span></a>
+                </li>
                 <li> <a class="dashboard2" href="{{route('admin.users')}}"><img src="assets/imgs/page/dashboard/candidates.svg" alt="jobBox"><span class="name">Our Users</span></a>
                 </li>
                 <div class="border-bottom mb-20 mt-20"></div>
@@ -86,6 +89,9 @@
           <li> <a class="dashboard2 {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{route('admin.dashboard')}}"><img src="assets/imgs/page/dashboard/dashboard.svg" alt="jobBox"><span class="name">Dashboard</span></a>
           </li>
           <li> <a class="dashboard2 {{ request()->routeIs('admin.games') ? 'active' : '' }}" href="{{route('admin.games')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Games List</span></a>
+          </li>
+          </li>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.categories') ? 'active' : '' }}" href="{{route('admin.categories')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Categories</span></a>
           </li>
           <li> <a class="dashboard2 {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{route('admin.users')}}"><img src="assets/imgs/page/dashboard/candidates.svg" alt="jobBox"><span class="name">Our Users</span></a>
           </li>
@@ -124,21 +130,22 @@
   </main>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-  <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
-  <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-  <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/plugins/waypoints.js"></script>
-  <script src="assets/js/plugins/magnific-popup.js"></script>
-  <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="assets/js/plugins/select2.min.js"></script>
-  <script src="assets/js/plugins/swiper-bundle.min.js"></script>
-  <script src="assets/js/plugins/jquery.circliful.js"></script>
-  <script src="assets/js/plugins/charts/index.js"></script>
-  <script src="assets/js/plugins/charts/xy.js"></script>
-  <script src="assets/js/plugins/charts/Animated.js"></script>
-  <script src="assets/js/plugins/armcharts5-script.js"></script>
-  <script src="assets/js/main.js?v=1.0"></script>
+  <script src="{{ asset('admin/assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/waypoints.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/magnific-popup.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/select2.min.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/swiper-bundle.min.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/jquery.circliful.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/charts/index.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/charts/xy.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/charts/Animated.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/plugins/armcharts5-script.js') }}"></script>
+  <script src="{{ asset('admin/assets/js/main.js?v=1.0') }}"></script>
+
 
   @stack('scripts')
 </body>
