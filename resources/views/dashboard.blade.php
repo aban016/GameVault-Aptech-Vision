@@ -86,12 +86,31 @@
             <div class="swiper">
                 <div class="swiper-wrapper">
 
-
+                    <div class="swiper-slide">
+                        <div class="game-card">
+                            <div class="game-card__box">
+                                <div class="game-card__media"><a href="10_game-profile.html"><img src="user/assets/img/gamecovers/pubg.jpg" alt="Struggle of Rivalry" /></a></div>
+                                <div class="game-card__info"><a class="game-card__title"> Struggle of Rivalry</a>
+                                    <div class="game-card__genre">Shooter / Platformer</div>
+                                    <div class="game-card__rating-and-price">
+                                        <div class="game-card__rating"><span>4.8</span><i class="ico_star"></i></div>
+                                        <div class="game-card__price"><span>$4.99 </span></div>
+                                    </div>
+                                    <div class="game-card__bottom">
+                                        <div class="game-card__platform"><i class="ico_windows"></i><i class="ico_apple"></i></div>
+                                        <div class="fl-gp-button">
+                                            <a class="fl-gp-button" rel="join" href="#"> Purchase </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="swiper-slide">
                         <div class="game-card">
                             <div class="game-card__box">
-                                <div class="game-card__media"><a href="10_game-profile.html"><img src="assets/img/game-1.jpg" alt="Struggle of Rivalry" /></a></div>
+                                <div class="game-card__media"><a href="10_game-profile.html"><img src="user/assets/img/gamecovers/Valorant.jpg" alt="Struggle of Rivalry" /></a></div>
                                 <div class="game-card__info"><a class="game-card__title" href="10_game-profile.html"> Struggle of Rivalry</a>
                                     <div class="game-card__genre">Shooter / Platformer</div>
                                     <div class="game-card__rating-and-price">
@@ -100,13 +119,14 @@
                                     </div>
                                     <div class="game-card__bottom">
                                         <div class="game-card__platform"><i class="ico_windows"></i><i class="ico_apple"></i></div>
+                                        <div class="fl-gp-button">
+                                            <a class="fl-gp-button" rel="join" href="#"> Purchase </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
 
                 </div>
 

@@ -6,8 +6,6 @@ use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
-use App\Models\Category;
-use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
