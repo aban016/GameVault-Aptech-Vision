@@ -2401,6 +2401,7 @@ option {
 .header .main-header .header-left .header-logo {
   margin-right: 0;
   min-width: 139px;
+  max-width: 180px;
 }
 .header .main-header .header-search {
   width: 60%;

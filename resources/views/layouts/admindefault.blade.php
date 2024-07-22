@@ -12,17 +12,17 @@
   <meta name="description" content="Index page">
   <meta name="keywords" content="index, page">
   <meta name="author" content="">
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin/assets/imgs/template/favicon.svg') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('admin/assets/imgs/logo/ph.ico') }}">
   <link href="{{ asset('admin/assets/css/style.css?version=2.0') }}" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <title>@yield('title') - Admin - Play Hub</title>
+  <title>@yield('title') - Admin - PlayHub</title>
 </head>
 
 <body>
   <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
       <div class="preloader-inner position-relative">
-        <div class="text-center"><img src="assets/imgs/template/loading.gif" alt="jobBox"></div>
+        <div class="text-center"><img src="{{ asset('admin/assets/imgs/template/loading.gif') }}" alt="jobBox"></div>
       </div>
     </div>
   </div>
@@ -30,11 +30,11 @@
     <div class="container">
       <div class="main-header">
         <div class="header-left">
-          <div class="header-logo"><a class="d-flex" href="index.html"><img alt="jobBox" src="assets/imgs/page/dashboard/logo.svg"></a></div><span class="btn btn-grey-small ml-10">Admin area</span>
+          <div class="header-logo"><a class="d-flex" href="{{ route('admin.dashboard') }}"><img alt="jobBox" src="{{ asset('admin/assets/imgs/logo/playhub.png') }}"></a></div>
         </div>
         <div class="header-right">
           <div class="block-signin">
-            <div class="member-login"><img alt="" src="assets/imgs/page/dashboard/profile.png">
+            <div class="member-login"><img alt="" src="{{ asset('admin/assets/imgs/page/dashboard/profile.png') }}">
               <div class="info-member"> <strong class="color-brand-1">{{ Auth::user()->name }}</strong>
                 <p class="text-muted">Admin</p>
               </div>
@@ -53,23 +53,23 @@
             <!-- mobile menu start-->
             <nav>
               <ul class="main-menu">
-                <li> <a class="dashboard2" href="{{route('admin.dashboard')}}"><img src="assets/imgs/page/dashboard/dashboard.svg" alt="jobBox"><span class="name">Dashboard</span></a>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{route('admin.dashboard')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/dashboard.svg') }}" alt="jobBox"><span class="name">Dashboard</span></a>
                 </li>
-                <li> <a class="dashboard2" href="{{route('admin.games')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Games List</span></a>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.games') ? 'active' : '' }}" href="{{route('admin.games')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/tasks.svg') }}" alt="jobBox"><span class="name">Games List</span></a>
                 </li>
                 </li>
-                <li> <a class="dashboard2" href="{{route('admin.categories')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Categories</span></a>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.categories') ? 'active' : '' }}" href="{{route('admin.categories')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/tasks.svg') }}" alt="jobBox"><span class="name">Categories</span></a>
                 </li>
-                <li> <a class="dashboard2" href="{{route('admin.users')}}"><img src="assets/imgs/page/dashboard/candidates.svg" alt="jobBox"><span class="name">Our Users</span></a>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{route('admin.users')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/candidates.svg') }}" alt="jobBox"><span class="name">Our Users</span></a>
                 </li>
                 <div class="border-bottom mb-20 mt-20"></div>
-                <li> <a class="dashboard2" href="{{route('admin.profile')}}"><img src="assets/imgs/page/dashboard/profiles.svg" alt="jobBox"><span class="name">My Profiles</span></a>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{route('admin.profile')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/profiles.svg') }}" alt="jobBox"><span class="name">My Profiles</span></a>
                 </li>
                 <li>
                   <form method="POST" action="{{ route('logout') }}" class="d-inline">
                     @csrf
                     <a class="dashboard2" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                      <img src="assets/imgs/page/dashboard/logout.svg" alt="jobBox">
+                      <img src="{{ asset('admin/assets/imgs/page/dashboard/logout.svg') }}" alt="jobBox">
                       <span class="name">{{ __('Logout') }}</span>
                     </a>
                   </form>
@@ -86,23 +86,23 @@
     <div class="nav"><a class="btn btn-expanded"></a>
       <nav class="nav-main-menu">
         <ul class="main-menu">
-          <li> <a class="dashboard2 {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{route('admin.dashboard')}}"><img src="assets/imgs/page/dashboard/dashboard.svg" alt="jobBox"><span class="name">Dashboard</span></a>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{route('admin.dashboard')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/dashboard.svg') }}" alt="jobBox"><span class="name">Dashboard</span></a>
           </li>
-          <li> <a class="dashboard2 {{ request()->routeIs('admin.games') ? 'active' : '' }}" href="{{route('admin.games')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Games List</span></a>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.games') ? 'active' : '' }}" href="{{route('admin.games')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/tasks.svg') }}" alt="jobBox"><span class="name">Games List</span></a>
           </li>
           </li>
-          <li> <a class="dashboard2 {{ request()->routeIs('admin.categories') ? 'active' : '' }}" href="{{route('admin.categories')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Categories</span></a>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.categories') ? 'active' : '' }}" href="{{route('admin.categories')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/tasks.svg') }}" alt="jobBox"><span class="name">Categories</span></a>
           </li>
-          <li> <a class="dashboard2 {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{route('admin.users')}}"><img src="assets/imgs/page/dashboard/candidates.svg" alt="jobBox"><span class="name">Our Users</span></a>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{route('admin.users')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/candidates.svg') }}" alt="jobBox"><span class="name">Our Users</span></a>
           </li>
           <div class="border-bottom mb-20 mt-20"></div>
-          <li> <a class="dashboard2 {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{route('admin.profile')}}"><img src="assets/imgs/page/dashboard/profiles.svg" alt="jobBox"><span class="name">My Profiles</span></a>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{route('admin.profile')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/profiles.svg') }}" alt="jobBox"><span class="name">My Profiles</span></a>
           </li>
           <li>
             <form method="POST" action="{{ route('logout') }}" class="d-inline">
               @csrf
               <a class="dashboard2" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                <img src="assets/imgs/page/dashboard/logout.svg" alt="jobBox">
+                <img src="{{ asset('admin/assets/imgs/page/dashboard/logout.svg') }}" alt="jobBox">
                 <span class="name">{{ __('Logout') }}</span>
               </a>
             </form>

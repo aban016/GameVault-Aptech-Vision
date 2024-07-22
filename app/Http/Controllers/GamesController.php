@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Game;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class GamesController extends Controller
      */
     public function create()
     {
-        return view('admin.games.create');
+        $categories = Category::where('is_active', true)->get();
+        return view('admin.games.create', compact('categories'));
     }
 
     /**
@@ -34,56 +36,41 @@ class GamesController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
-            'sale' => 'required|boolean',
-            'availability' => 'required|boolean',
-            'rating' => 'required|numeric|min:0|max:5',
+            'sale' => 'boolean',
+            'availability' => 'boolean',
+            'rating' => 'nullable|numeric|min:0|max:5',
             'user_id' => 'required|exists:users,id',
-            'release_year' => 'required|date_format:Y',
+            'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
             'developer' => 'required|string|max:255',
             'platform' => 'required|string|max:255',
-            'installation_file' => 'required',
-            'image1' => 'required|image|max:2048',
-            'image2' => 'nullable|image|max:2048',
-            'image3' => 'nullable|image|max:2048',
-            'image4' => 'nullable|image|max:2048',
-            'video' => 'nullable|mimes:mp4,mov,ogg,qt|max:20000',
+            'installation_file' => 'required|string',
+            'cover' => 'required|string',
+            'video' => 'nullable|string',
         ]);
 
-        $images = [];
-        for ($i = 1; $i <= 4; $i++) {
-            $imageField = 'image' . $i;
-            if ($request->hasFile($imageField)) {
-                $images[$imageField] = base64_encode(file_get_contents($request->file($imageField)));
-            } else {
-                $images[$imageField] = null;
+        try {
+            $data = $request->all();
+    
+            if ($request->hasFile('cover')) {
+                $cover = $request->file('cover');
+                $coverName = time() . '_' . $cover->getClientOriginalName();
+                $cover->move(public_path('user/assets/img/gamecovers'), $coverName);
+                $data['cover'] = $coverName;
             }
+    
+            if ($request->hasFile('video')) {
+                $video = $request->file('video');
+                $videoName = time() . '_' . $video->getClientOriginalName();
+                $video->move(public_path('user/assets/img/gamevideos'), $videoName);
+                $data['video'] = $videoName;
+            }
+    
+            Game::create($data);
+    
+            return redirect()->route('games.index')->with('success', 'Game added successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('games.index')->with('error', 'Failed to add game. Please try again.');
         }
-
-        $videoBase64 = null;
-        if ($request->hasFile('video')) {
-            $videoBase64 = base64_encode(file_get_contents($request->file('video')));
-        }
-
-        $game = new Game();
-        $game->title = $request->title;
-        $game->description = $request->description;
-        $game->price = $request->price;
-        $game->sale = $request->sale;
-        $game->availability = $request->availability;
-        $game->rating = $request->rating;
-        $game->user_id = $request->user_id;
-        $game->release_year = $request->release_year;
-        $game->developer = $request->developer;
-        $game->platform = $request->platform;
-        $game->installation_file = $request->installation_file;
-        $game->image1 = $images['image1'];
-        $game->image2 = $images['image2'];
-        $game->image3 = $images['image3'];
-        $game->image4 = $images['image4'];
-        $game->video = $videoBase64;
-        $game->save();
-
-        return redirect()->route('admin.games.index')->with('success', 'Game created successfully.');
     }
 
     /**
@@ -113,71 +100,25 @@ class GamesController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
-            'sale' => 'required|boolean',
-            'availability' => 'required|boolean',
-            'rating' => 'required|numeric|min:0|max:5',
+            'sale' => 'boolean',
+            'availability' => 'boolean',
+            'rating' => 'nullable|numeric|min:0|max:5',
             'user_id' => 'required|exists:users,id',
-            'release_year' => 'required|date_format:Y',
+            'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
             'developer' => 'required|string|max:255',
             'platform' => 'required|string|max:255',
-            'installation_file' => 'required',
-            'image1' => 'required|image|max:2048',
-            'image2' => 'nullable|image|max:2048',
-            'image3' => 'nullable|image|max:2048',
-            'image4' => 'nullable|image|max:2048',
-            'video' => 'nullable|mimes:mp4,mov,ogg,qt|max:20000',
+            'installation_file' => 'required|string',
+            'cover' => 'required|string',
+            'video' => 'nullable|string',
         ]);
 
-        $game = Game::findOrFail($id);
-
-        if ($request->has('title')) {
-            $game->title = $request->input('title');
+        try {
+            $game = Game::findOrFail($id);
+            $game->update($request->all());
+            return redirect()->route('games.index')->with('success', 'Game updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('games.index')->with('error', 'Failed to update game. Please try again.');
         }
-        if ($request->has('description')) {
-            $game->description = $request->input('description');
-        }
-        if ($request->has('price')) {
-            $game->price = $request->input('price');
-        }
-        if ($request->has('sale')) {
-            $game->sale = $request->input('sale');
-        }
-        if ($request->has('availability')) {
-            $game->availability = $request->input('availability');
-        }
-        if ($request->has('rating')) {
-            $game->rating = $request->input('rating');
-        }
-        if ($request->has('user_id')) {
-            $game->user_id = $request->input('user_id');
-        }
-        if ($request->has('release_year')) {
-            $game->release_year = $request->input('release_year');
-        }
-        if ($request->has('developer')) {
-            $game->developer = $request->input('developer');
-        }
-        if ($request->has('platform')) {
-            $game->platform = $request->input('platform');
-        }
-        if ($request->has('installation_file')) {
-            $game->installation_file = $request->input('installation_file');
-        }
-
-        for ($i = 1; $i <= 4; $i++) {
-            $imageField = 'image' . $i;
-            if ($request->hasFile($imageField)) {
-                $game->{$imageField} = base64_encode(file_get_contents($request->file($imageField)));
-            }
-        }
-
-        if ($request->hasFile('video')) {
-            $game->video = base64_encode(file_get_contents($request->file('video')));
-        }
-
-        $game->save();
-
-        return redirect()->route('games.index')->with('success', 'Game updated successfully.');
     }
 
     /**

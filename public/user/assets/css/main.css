@@ -1656,7 +1656,7 @@ html .uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input {
 
 
 .page-header__logo img {
-    max-width: 30px;
+    max-width: 180px;
     height: auto;
     margin-right: 12px;
 }

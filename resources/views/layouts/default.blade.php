@@ -13,7 +13,7 @@
     <meta name="HandheldFriendly" content="true">
     <meta name="format-detection" content="telephone=no">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <link rel="shortcut icon" href="{{ asset('user/assets/img/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('user/assets/img/logo/ph.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('user/assets/css/libs.min.css') }}">
     <link rel="stylesheet" href="{{ asset('user/assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('user/assets/fonts/simple-line-icons/css/simple-line-icons.css') }}">
@@ -65,7 +65,7 @@
                             </span>
                         </button>
                     </div>
-                    <div class="page-header__logo"><img src="assets/img/logo.png" alt="logo"><span class="page-header__logo_text">TEAMHOST</span></div>
+                    <div class="page-header__logo"><img src="{{ asset('user/assets/img/logo/playhub.png') }}" alt="logo"></div>
                 </div>
                 <div class="page-header__content">
                     <div class="page-header__search">
@@ -148,7 +148,7 @@
 
                 <div class="sidebar-box">
                     <ul class="uk-nav">
-                        <li class="{{ request()->routeIs('dashboard') ? 'uk-active' : '' }}"><a href="{{ route('dashboard') }}"><i class="ico_home"></i><span>Home</span></a></li>
+                        <li class="{{ request()->routeIs('/') ? 'uk-active' : '' }}"><a href="{{ route('/') }}"><i class="ico_home"></i><span>Home</span></a></li>
                         @auth
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Account</span></li>
                         <li class="{{ request()->routeIs('user.profile') ? 'uk-active' : '' }}"><a href="{{ route('user.profile') }}"><i class="ico_profile"></i><span>{{ __('Profile') }}</span></a></li>

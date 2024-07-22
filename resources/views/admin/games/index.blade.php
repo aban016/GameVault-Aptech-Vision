@@ -22,67 +22,94 @@
       <div class="container">
         <div class="panel-white mb-30">
           <div class="box-padding">
-            <div class="box-filters-job">
-              <div class="row">
-                <div class="col-xl-6 col-lg-5">
-
-                  <div class="header-search">
-                    <div class="box-search">
-                      <form action="">  
-                        <input class="form-control input-search" type="text" name="keyword" placeholder="Search">
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-6 col-lg-7 text-lg-end mt-sm-15">
-                  <div class="display-flex2">
-                    <div class="box-border mr-10"><span class="text-sortby">Show:</span>
-                      <div class="dropdown dropdown-sort">
-                        <button class="btn dropdown-toggle" id="dropdownSort" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"><span>12</span><i class="fi-rr-angle-small-down"></i></button>
-                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort">
-                          <li><a class="dropdown-item active" href="#">10</a></li>
-                          <li><a class="dropdown-item" href="#">12</a></li>
-                          <li><a class="dropdown-item" href="#">20</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="box-border"><span class="text-sortby">Sort by:</span>
-                      <div class="dropdown dropdown-sort">
-                        <button class="btn dropdown-toggle" id="dropdownSort2" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"><span>Newest Post</span><i class="fi-rr-angle-small-down"></i></button>
-                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort2">
-                          <li><a class="dropdown-item active" href="#">Newest Post</a></li>
-                          <li><a class="dropdown-item" href="#">Oldest Post</a></li>
-                          <li><a class="dropdown-item" href="#">Rating Post</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                   </div>
-                </div>
-              </div>
-            </div>
             <div class="row mb-3">
               <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
                 <a class="btn btn-default icon-edit hover-up" href="{{route('admin.games.create')}}">Create New Game</a>
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 col-12">
-                <div class="card-grid-2 hover-up">
-                  <div class="card-grid-2-image-left"><span class="flash"></span>
-                    <div class="image-box"><img src="assets/imgs/brands/brand-1.png" alt="jobBox"></div>
-                    <div class="right-info"><a class="name-job" href="company-details.html">LinkedIn</a><span class="location-small">New York, US</span></div>
-                  </div>
-                  <div class="card-block-info">
-                    <h6><a href="job-details.html">UI / UX Designer fulltime</a></h6>
-                    <div class="mt-5"><span class="card-briefcase">Fulltime</span><span class="card-time">4<span> minutes ago</span></span></div>
-                    <p class="font-sm color-text-paragraph mt-15">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                    <div class="mt-30"><a class="btn btn-grey-small mr-5" href="jobs-grid.html">Adobe XD</a><a class="btn btn-grey-small mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-grey-small mr-5" href="jobs-grid.html">Photoshop</a>
-                    </div>
-                    <div class="card-2-bottom mt-30">
-                      <div class="row">
-                        <div class="col-lg-7 col-7"><span class="card-text-price">$500</span><span class="text-muted">/Hour</span></div>
-                        <div class="col-lg-5 col-5 text-end">
-                          <div class="btn btn-apply-now" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">Apply now</div>
+              @if(session('success'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+              </div>
+              @elseif(session('error')){
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+              </div>
+              }
+              @endif
+              <div class="col-xxl-12 col-xl-12 col-lg-12">
+                <div class="section-box">
+                  <div class="container">
+                    <div class="panel-white">
+                      <div class="panel-body">
+                        <div class="card-style-3">
+                          <table class="table" id="gamesTable">
+                            <thead>
+                              <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Genre</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Sale</th>
+                                <th scope="col">Availability</th>
+                                <th scope="col">Rating</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Release Year</th>
+                                <th scope="col">Developer</th>
+                                <th scope="col">Platform</th>
+                                <th scope="col">Cover</th>
+                                <th scope="col">Video</th>
+                                <th scope="col">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @php $num = 1; @endphp
+                              @foreach($games as $game)
+                              <tr class="table-hover hover-up">
+                                <td>{{ $num++ }}</td>
+                                <td>{{ $game->title }}</td>
+                                <td>{{ $game->description }}</td>
+                                <td>{{ $game->genre }}</td>
+                                <td>${{ $game->price }}</td>
+                                <td>
+                                  @if ($game->sale)
+                                  <span class="badge bg-success">On Sale</span>
+                                  @else
+                                  <span class="badge bg-secondary">Not on Sale</span>
+                                  @endif
+                                </td>
+                                <td>
+                                  @if ($game->availability)
+                                  <span class="badge bg-success">Available</span>
+                                  @else
+                                  <span class="badge bg-danger">Unavailable</span>
+                                  @endif
+                                </td>
+                                <td>{{ $game->rating }}</td>
+                                <td>{{ $game->user->name }}</td>
+                                <td>{{ $game->release_year }}</td>
+                                <td>{{ $game->developer }}</td>
+                                <td>{{ $game->platform }}</td>
+                                <td>
+                                  <img src="{{ asset('user/assets/img/gamecovers/'.$game->cover) }}" alt="{{ $game->title }}" width="50">
+                                </td>
+                                <td>
+                                  <iframe width="80" height="60" src="{{ $game->video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </td>
+                                <td>
+                                  <form action="" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">X</button>
+                                  </form>
+                                </td>
+                              </tr>
+                              @endforeach
+                            </tbody>
+                          </table>
+
                         </div>
                       </div>
                     </div>
@@ -90,23 +117,32 @@
                 </div>
               </div>
             </div>
-            <div class="paginations">
-              <ul class="pager">
-                <li><a class="pager-prev" href="#"></a></li>
-                <li><a class="pager-number" href="#">1</a></li>
-                <li><a class="pager-number" href="#">2</a></li>
-                <li><a class="pager-number" href="#">3</a></li>
-                <li><a class="pager-number" href="#">4</a></li>
-                <li><a class="pager-number" href="#">5</a></li>
-                <li><a class="pager-number active" href="#">6</a></li>
-                <li><a class="pager-number" href="#">7</a></li>
-                <li><a class="pager-next" href="#"></a></li>
-              </ul>
-            </div>
+            <!--  -->
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#gamesTable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "order": [
+        [0, "asc"]
+      ]
+    });
+  });
+</script>
+@endpush
+
+
 @stop

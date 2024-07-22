@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return redirect('dashboard');
 // });
-Route::get('/', [UsersController::class, 'dashboard']);
+Route::get('/', [UsersController::class, 'dashboard'])->name('/');
+
+Route::get('/free-games', [UsersController::class, 'freeGames'])->name('freeGames');
+Route::get('/premium-games', [UsersController::class, 'premiumGames'])->name('premiumGames');
+Route::get('/gamplays', [UsersController::class, 'gameplays'])->name('gameplays');
 
 // Route::get('/dashboard', function () {
 //     $categories = Category::where('is_active', true)->get();
@@ -26,9 +30,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('user/profile', [UsersController::class, 'profile'])->name('user.profile');
     Route::get('user/favourites', [UsersController::class, 'favourite'])->name('user.favourite');
     Route::get('user/wallet', [UsersController::class, 'wallet'])->name('user.wallet');
-    Route::get('/free-games', [UsersController::class, 'freeGames'])->name('freeGames');
-    Route::get('/premium-games', [UsersController::class, 'premiumGames'])->name('premiumGames');
-    Route::get('/gamplays', [UsersController::class, 'gameplays'])->name('gameplays');
 
 });
     
