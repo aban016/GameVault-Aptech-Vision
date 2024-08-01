@@ -56,9 +56,9 @@ class UsersController extends Controller
     }
 
     public function premiumGames(){
-        $paidGames = Game::where('sale', true)->get();
+        $premiumGames = Game::where('sale', true)->get();
         $categories = Category::where('is_active', true)->get();
-        return view('premium-games', 'categories', 'paidGames');
+        return view('premium-games', compact('categories', 'premiumGames'));
     }
 
     public function gameplays(){
