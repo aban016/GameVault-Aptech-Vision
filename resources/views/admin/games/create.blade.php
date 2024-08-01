@@ -22,7 +22,7 @@
       <div class="container">
         <div class="panel-white mb-30">
           <div class="box-padding">
-            <h5>Game Profile</h5>
+          <h5>Game Profile</h5>
             <form action="{{ route('admin.games.store') }}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="row mt-30">
@@ -135,7 +135,9 @@
                 <div class="col-md-6">
                   <div class="form-group mb-30">
                     <label class="font-sm color-text-muted mb-10">Categories</label>
-                    <select class="form-control" name="category[]" id="mulitipleSelector1" multiple>
+                    <select class="form-control" name="category" >
+                      
+                    <option value=""></option>
                       @foreach ($categories as $category)
                       <option value="{{ $category->category }}">{{ $category->category }}</option>
                       @endforeach
@@ -156,33 +158,6 @@
                     @enderror
                   </div>
                 </div>
-
-                <!-- Sale and Availability -->
-                <div class="col-md-6">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group mb-30">
-                      <label class="font-sm color-text-muted mb-10">Sale</label>
-                      <input type="checkbox" name="sale">
-                        @error('sale')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                        </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group mb-30">
-                      <label class="font-sm color-text-muted mb-10">Availability</label>
-                      <input type="checkbox" name="availability">
-                        @error('availability')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                        </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-
                 <!-- Submit Button -->
                 <div class="col-lg-12">
                   <div class="form-group mt-10">
@@ -202,7 +177,6 @@
 <script>
   $(document).ready(function() {
     $('#mulitipleSelector').select2();
-    $('#mulitipleSelector1').select2();
   });
 </script>
 @endpush

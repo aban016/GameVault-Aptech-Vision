@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Game;
+use App\Models\Gameplay;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,15 +49,23 @@ class UsersController extends Controller
     }
 
     public function freeGames(){
-        return view('free-games');
+        $freeGames = Game::where('sale', false)->get();
+        $totalFreeGames = Game::where('sale', false)->count();
+        $categories = Category::where('is_active', true)->get();
+        return view('free-games', compact('freeGames', 'categories', 'totalFreeGames'));
     }
 
     public function premiumGames(){
-        return view('premium-games');
+        $paidGames = Game::where('sale', true)->get();
+        $categories = Category::where('is_active', true)->get();
+        return view('premium-games', 'categories', 'paidGames');
     }
 
     public function gameplays(){
-        return view('watch');
+        $gameplays = Gameplay::all();
+        $categories = Category::where('is_active', true)->get();
+        $users = User::whereIn('id', $gameplays->pluck('uploaded_by'))->get()->keyBy('id');
+        return view('watch', compact('gameplays', 'categories', 'users'));
     }
 
     public function destroy(string $id)

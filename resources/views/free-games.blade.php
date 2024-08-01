@@ -5,86 +5,129 @@
 @section('content')
 <div class="uk-grid" data-uk-grid>
     <div class="widjet --filters">
-        <div class="uk-page-heading uk-height-medium uk-height-max-medium uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="assets/img/heading8.jpg" uk-img uk-parallax="bgy: -70">
-            <div class="fl-hd-cover">
-                <span class="decore-lt"></span>
-                <span class="decore-lb"></span>
-                <span class="decore-rt"></span>
-                <span class="decore-rb"></span>
-            </div>
-            <h1 class="uk-page-heading-h">Free Games</h1>
-            <p class="uk-heading-text">Play free and enjoy!</p>
-        </div>
+        <h1>-> Free Games</h1>
         <div class="widjet__body">
             <div class="uk-grid uk-child-width-1-6@xl uk-child-width-1-3@l uk-child-width-1-2@s uk-flex-middle uk-grid-small" data-uk-grid>
                 <div class="uk-width-1-1">
                     <div class="search">
-                        <div class="search__input"><i class="ico_search"></i><input type="search" name="search" placeholder="Search"></div>
+                        <div class="search__input"><i class="ico_search"></i><input type="search" name="search" placeholder="Search" id="search"></div>
                         <div class="search__btn"><button type="button"><i class="ico_microphone"></i></button></div>
                     </div>
                 </div>
-                <div><select class="js-select">
+                <div><select class="js-select" id="priceFilter">
                         <option value="">Sort By: Price</option>
-                        <option value="Price 1">Price 1</option>
-                        <option value="Price 2">Price 2</option>
-                        <option value="Price 3">Price 3</option>
+                        <option value="10-100">$10 - $100</option>
+                        <option value="100-300">$100 - $300</option>
+                        <option value="300-400">$300 - $400</option>
+                        <option value="400-1000">$400 - $1000</option>
                     </select></div>
-                <div><select class="js-select">
-                        <option value="">Category: Strategy</option>
-                        <option value="Category 1">Category 1</option>
-                        <option value="Category 2">Category 2</option>
-                        <option value="Category 3">Category 3</option>
+                <div><select class="js-select" id="categoryFilter">
+                        <option value="">Category: All</option>
+                        @foreach($categories as $category)
+                        <option value="{{ strtolower($category->category) }}">{{ $category->category }}</option>
+                        @endforeach
                     </select></div>
-                <div><select class="js-select">
+                <div><select class="js-select" id="platformFilter">
                         <option value="">Platform: All</option>
-                        <option value="Platform 1">Platform 1</option>
-                        <option value="Platform 2">Platform 2</option>
-                        <option value="Platform 3">Platform 3</option>
+                        <option value="windows">Windows</option>
+                        <option value="apple">Apple</option>
                     </select></div>
-                <div><select class="js-select">
-                        <option value=""># of Players: All</option>
-                        <option value="Platform 1">Platform 1</option>
-                        <option value="Platform 2">Platform 2</option>
-                        <option value="Platform 3">Platform 3</option>
-                    </select></div>
-                <div>
-                    <div class="price-range"><label>Price</label><input class="uk-range" type="range" value="2" min="0" max="10" step="0.1"></div>
-                </div>
-                <div class="uk-text-right"><a href="#!">25 items</a></div>
+                <div class="uk-text-right"><a href="#!">{{ $totalFreeGames }} items</a></div>
             </div>
         </div>
     </div>
     <div class="uk-width-1-1">
         <h3 class="uk-text-lead">Best Free Games</h3>
         <div class="js-store">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-
-
-
-                    <div class="swiper-slide">
-                        <div class="game-card">
-                            <div class="game-card__box">
-                                <div class="game-card__media"><a href="10_game-profile.html"><img src="assets/img/game-1.jpg" alt="Struggle of Rivalry" /></a></div>
-                                <div class="game-card__info"><a class="game-card__title" href="10_game-profile.html"> Struggle of Rivalry</a>
-                                    <div class="game-card__genre">Shooter / Platformer</div>
-                                    <div class="game-card__rating-and-price">
-                                        <div class="game-card__rating"><span>4.8</span><i class="ico_star"></i></div>
-                                        <div class="game-card__price"><span>$4.99 </span></div>
+            <div class="row my-2">
+                @foreach($freeGames as $game)
+                <div class="col-md-3">
+                    <div class="game-card">
+                        <div class="game-card__box">
+                            <div class="game-card__media">
+                                <a href="{{ url('games/' . $game->id) }}">
+                                    <img src="{{ asset('user/assets/img/gamecovers/' . $game->cover) }}" alt="{{ $game->title }}" />
+                                </a>
+                            </div>
+                            <div class="game-card__info">
+                                <a class="game-card__title">{{ $game->title }}</a>
+                                <div class="game-card__genre">{{ $game->genre }}</div>
+                                <div class="game-card__rating-and-price">
+                                    <div class="game-card__rating">
+                                        <span>{{ $game->rating }}</span>
+                                        <i class="ico_star"></i> 
                                     </div>
-                                    <div class="game-card__bottom">
-                                        <div class="game-card__platform"><i class="ico_windows"></i><i class="ico_apple"></i></div>
+                                </div>
+                                <div class="game-card__bottom">
+                                    <div class="game-card__platform">
+                                        @if($game->platform == 'Windows')
+                                        <i class="ico_windows"></i>
+                                        @elseif($game->platform == 'Apple')
+                                        <i class="ico_apple"></i>
+                                        @else
+                                        <i class="ico_windows"></i>
+                                        <i class="ico_apple"></i>
+                                        @endif
+                                    </div>
+                                    <div class="fl-gp-button">
+                                        <a class="fl-gp-button" rel="join"> @if($game->price == 0.00)
+                                            Free
+                                            @else
+                                            ${{ $game->price }}
+                                            @endif </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
+                @endforeach
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const platformFilter = document.getElementById('platformFilter');
+        const priceFilter = document.getElementById('priceFilter');
+        const gameCards = document.querySelectorAll('.col-md-3');
+
+        searchInput.addEventListener('input', filterGames);
+        categoryFilter.addEventListener('change', filterGames);
+        platformFilter.addEventListener('change', filterGames);
+        priceFilter.addEventListener('change', filterGames);
+
+        function filterGames() {
+            const searchText = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value.toLowerCase();
+            const selectedPlatform = platformFilter.value.toLowerCase();
+            const selectedPrice = priceFilter.value;
+
+            gameCards.forEach(card => {
+                const title = card.querySelector('.game-card__title').textContent.toLowerCase();
+                const genre = card.querySelector('.game-card__genre').textContent.toLowerCase();
+                const platformIcons = card.querySelectorAll('.game-card__platform i');
+                const priceText = card.querySelector('.game-card__price span').textContent.replace('$', '');
+                const price = parseFloat(priceText);
+
+                let matchesSearch = title.includes(searchText);
+                let matchesCategory = selectedCategory === '' || genre.includes(selectedCategory);
+                let matchesPlatform = selectedPlatform === '' || Array.from(platformIcons).some(icon => icon.classList.contains(`ico_${selectedPlatform}`));
+                let matchesPrice = selectedPrice === '' || (price >= parseFloat(selectedPrice.split('-')[0]) && price <= parseFloat(selectedPrice.split('-')[1]));
+
+                if (matchesSearch && matchesCategory && matchesPlatform && matchesPrice) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+@endpush
+
 @stop

@@ -36,37 +36,28 @@ class GamesController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
-            'sale' => 'boolean',
-            'availability' => 'boolean',
             'rating' => 'nullable|numeric|min:0|max:5',
             'user_id' => 'required|exists:users,id',
             'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
             'developer' => 'required|string|max:255',
             'platform' => 'required|string|max:255',
-            'installation_file' => 'required|string',
-            'cover' => 'required|string',
+            'installation_file' => 'file',
+            'cover' => 'required|file|mimes:jpeg,png,jpg',
             'video' => 'nullable|string',
         ]);
 
         try {
             $data = $request->all();
-    
+        
             if ($request->hasFile('cover')) {
                 $cover = $request->file('cover');
-                $coverName = time() . '_' . $cover->getClientOriginalName();
-                $cover->move(public_path('user/assets/img/gamecovers'), $coverName);
-                $data['cover'] = $coverName;
+                $coverContent = file_get_contents($cover->getRealPath());
+                $coverBase64 = base64_encode($coverContent);
+                $data['cover'] = $coverBase64;
             }
-    
-            if ($request->hasFile('video')) {
-                $video = $request->file('video');
-                $videoName = time() . '_' . $video->getClientOriginalName();
-                $video->move(public_path('user/assets/img/gamevideos'), $videoName);
-                $data['video'] = $videoName;
-            }
-    
+        
             Game::create($data);
-    
+        
             return redirect()->route('games.index')->with('success', 'Game added successfully!');
         } catch (\Exception $e) {
             return redirect()->route('games.index')->with('error', 'Failed to add game. Please try again.');
@@ -108,7 +99,7 @@ class GamesController extends Controller
             'developer' => 'required|string|max:255',
             'platform' => 'required|string|max:255',
             'installation_file' => 'required|string',
-            'cover' => 'required|string',
+            'cover' => 'required|file|mimes:jpeg,png,jpg',
             'video' => 'nullable|string',
         ]);
 
