@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('user/assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('user/assets/fonts/simple-line-icons/css/simple-line-icons.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="{{ asset('admin/assets/css/style.css?version=2.0') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;display=swap" rel="stylesheet">
     <script src="{{ asset('user/assets/js/libs.js') }}"></script>
     <script src="{{ asset('user/assets/js/main.js') }}"></script>
@@ -180,7 +181,7 @@
     </div>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('admin/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
     
     @stack('scripts')
 

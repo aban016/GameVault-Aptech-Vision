@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Game;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class GamesController extends Controller
 {
@@ -32,35 +32,33 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required',
-            'price' => 'required|numeric',
+            'price' => 'nullable|numeric',
             'rating' => 'nullable|numeric|min:0|max:5',
-            'user_id' => 'required|exists:users,id',
             'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
             'developer' => 'required|string|max:255',
             'platform' => 'required|string|max:255',
-            'installation_file' => 'file',
-            'cover' => 'required|file|mimes:jpeg,png,jpg',
+            'installation_file' => 'nullable|file',
+            'installation_file_link' => 'nullable|url',
+            'cover' => 'required|file',
             'video' => 'nullable|string',
         ]);
+        $validatedData['user_id'] = Auth::id();
 
         try {
-            $data = $request->all();
-        
             if ($request->hasFile('cover')) {
                 $cover = $request->file('cover');
                 $coverContent = file_get_contents($cover->getRealPath());
                 $coverBase64 = base64_encode($coverContent);
-                $data['cover'] = $coverBase64;
+                $validatedData['cover'] = $coverBase64;
             }
-        
-            Game::create($data);
-        
-            return redirect()->route('games.index')->with('success', 'Game added successfully!');
+
+            Game::create($validatedData);
+            return redirect()->route('admin.games')->with('success', 'Game added successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('games.index')->with('error', 'Failed to add game. Please try again.');
+            return redirect()->route('admin.games')->with('error', 'Failed to add game. Please try again.');
         }
     }
 
@@ -87,28 +85,39 @@ class GamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'price' => 'required|numeric',
-            'sale' => 'boolean',
-            'availability' => 'boolean',
-            'rating' => 'nullable|numeric|min:0|max:5',
-            'user_id' => 'required|exists:users,id',
-            'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
-            'developer' => 'required|string|max:255',
-            'platform' => 'required|string|max:255',
-            'installation_file' => 'required|string',
-            'cover' => 'required|file|mimes:jpeg,png,jpg',
-            'video' => 'nullable|string',
+        $validatedData = $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|required',
+            'price' => 'sometimes|required|numeric',
+            'sale' => 'sometimes|boolean',
+            'rating' => 'sometimes|nullable|numeric|min:0|max:5',
+            'release_year' => 'sometimes|required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'developer' => 'sometimes|required|string|max:255',
+            'platform' => 'sometimes|required|string|max:255',
+            'installation_file' => 'sometimes|required|string',
+            'cover' => 'sometimes|required|file|mimes:jpeg,png,jpg',
+            'video' => 'sometimes|nullable|string',
         ]);
 
         try {
             $game = Game::findOrFail($id);
-            $game->update($request->all());
-            return redirect()->route('games.index')->with('success', 'Game updated successfully!');
+
+            if ($game->user_id !== Auth::id()) {
+                return redirect()->route('games.index')->with('error', 'Unauthorized access.');
+            }
+
+            if ($request->hasFile('cover')) {
+                $cover = $request->file('cover');
+                $coverContent = file_get_contents($cover->getRealPath());
+                $coverBase64 = base64_encode($coverContent);
+                $validatedData['cover'] = $coverBase64;
+            }
+
+            $game->update($validatedData);
+
+            return redirect()->route('admin.games')->with('success', 'Game updated successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('games.index')->with('error', 'Failed to update game. Please try again.');
+            return redirect()->route('admin.games')->with('error', 'Failed to update game. Please try again.');
         }
     }
 
@@ -120,6 +129,6 @@ class GamesController extends Controller
         $game = Game::findOrFail($id);
         $game->delete();
 
-        return redirect()->route('games.index')->with('success', 'Game deleted successfully.');
+        return redirect()->route('admin.games')->with('success', 'Game deleted successfully.');
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GameplayController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
@@ -44,18 +45,24 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    // Profile
     Route::get('admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::patch('admin/profile', [AdminController::class, 'profileUpdate'])->name('admin.profile.update');
+    // Games
     Route::get('admin/games', [GamesController::class, 'index'])->name('admin.games');
     Route::get('admin/games/create', [GamesController::class, 'create'])->name('admin.games.create');
     Route::post('admin/games/add', [GamesController::class, 'store'])->name('admin.games.store');
+    // Users
     Route::get('admin/users', [UsersController::class, 'index'])->name('admin.users');
+    // Categories
     Route::get('admin/categories', [CategoryController::class, 'index'])->name('admin.categories');
     Route::post('admin/categories/add', [CategoryController::class, 'store'])->name('admin.categories.store');
     Route::get('admin/categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
     Route::patch('/categories/toggle-status/{id}', [CategoryController::class, 'toggleStatus'])->name('admin.categories.toggleStatus');
     Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.delete');
-    Route::resource('categories', CategoryController::class);
+    // Gameplays
+    Route::get('admin/gameplay', [GameplayController::class, 'index'])->name('admin.gameplay');
+    Route::delete('admin/gameplay/{gameplay}', [CategoryController::class, 'destroy'])->name('admin.gameplay.delete');
 });
 
 // Google Auth

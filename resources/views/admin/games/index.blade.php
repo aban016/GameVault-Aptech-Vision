@@ -32,11 +32,10 @@
               <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
               </div>
-              @elseif(session('error')){
+              @elseif(session('error'))
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session('error') }}
               </div>
-              }
               @endif
               <div class="col-xxl-12 col-xl-12 col-lg-12">
                 <div class="section-box">

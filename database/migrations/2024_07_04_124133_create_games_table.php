@@ -16,15 +16,15 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('category');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 10, 2)->nullable();
             $table->boolean('sale')->default(false);
-            $table->boolean('availability')->default(true);
             $table->decimal('rating', 3, 2)->default(0.00);
             $table->unsignedBigInteger('user_id');
             $table->year('release_year');
             $table->string('developer');
             $table->string('platform');
-            $table->longText('installation_file');
+            $table->longText('installation_file')->nullable();
+            $table->longText('installation_file_link')->nullable();
             $table->longText('cover');
             $table->longText('video');
             $table->timestamps();

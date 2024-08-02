@@ -62,6 +62,8 @@
                 </li>
                 <li> <a class="dashboard2 {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{route('admin.users')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/candidates.svg') }}" alt="jobBox"><span class="name">Our Users</span></a>
                 </li>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.gameplay') ? 'active' : '' }}" href="{{route('admin.gameplay')}}"><img src="assets/imgs/page/dashboard/cv-manage.svg" alt="jobBox"><span class="name">GamePlays</span></a>
+                </li>
                 <div class="border-bottom mb-20 mt-20"></div>
                 <li> <a class="dashboard2 {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{route('admin.profile')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/profiles.svg') }}" alt="jobBox"><span class="name">My Profiles</span></a>
                 </li>
@@ -94,6 +96,8 @@
           <li> <a class="dashboard2 {{ request()->routeIs('admin.categories') ? 'active' : '' }}" href="{{route('admin.categories')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/tasks.svg') }}" alt="jobBox"><span class="name">Categories</span></a>
           </li>
           <li> <a class="dashboard2 {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{route('admin.users')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/candidates.svg') }}" alt="jobBox"><span class="name">Our Users</span></a>
+          </li>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.gameplay') ? 'active' : '' }}" href="{{route('admin.gameplay')}}"><img src="assets/imgs/page/dashboard/cv-manage.svg" alt="jobBox"><span class="name">GamePlays</span></a>
           </li>
           <div class="border-bottom mb-20 mt-20"></div>
           <li> <a class="dashboard2 {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{route('admin.profile')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/profiles.svg') }}" alt="jobBox"><span class="name">My Profiles</span></a>
