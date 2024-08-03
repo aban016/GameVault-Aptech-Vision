@@ -124,14 +124,9 @@
                                     </ul>
                                 </div>
                                 @else
-                                <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                    Log in
+                                <a href="{{ route('login') }}" class="fw-bold" style="font-size: medium;">
+                                   <img src="{{ asset('user/assets/img/svgico/profile-user.png') }}" style="width: 24px;" alt="user"> Sign in
                                 </a>
-                                @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                    Register
-                                </a>
-                                @endif
                                 @endauth
                             </li>
                             @endif
@@ -165,6 +160,9 @@
 
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Others</span></li>
                         <li class="{{ request()->routeIs('gameplays') ? 'uk-active' : '' }}"><a href="{{ route('gameplays') }}"><i class="ico_streams"></i><span>GamePlays</span></a></li>
+                                    
+                        <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Support</span></li>
+                            <li><a href="#modal-report" data-uk-toggle><i class="ico_report"></i><span>Report</span></a></li>
                     </ul>
                 </div>
             </aside>

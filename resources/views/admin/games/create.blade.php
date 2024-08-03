@@ -121,10 +121,11 @@
                     <select class="form-control" name="platform">
                       <option value="Windows">Windows</option>
                       <option value="Apple">Apple</option>
-                      <option value="Linux">Linux</option>
                       <option value="Android">Android</option>
                       <option value="iOS">iOS</option>
-                      <option value="WindowsApple">Windows / Apple</option>
+                      <option value="IOS / Android">IOS / Android</option>
+                      <option value="Windows / Android">Windows / Android</option>
+                      <option value="Windows / Apple">Windows / Apple</option>
                     </select>
                     @error('platform')
                     <small class="text-danger">{{ $message }}</small>

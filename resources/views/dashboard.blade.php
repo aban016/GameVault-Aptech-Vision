@@ -60,10 +60,6 @@
                     </div>
                 </div>
 
-                <div class="swipper-nav">
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
                 <div class="swiper-pagination"></div>
             </div>
         </div>
@@ -108,9 +104,9 @@
         </div>
     </div>
     <div class="uk-width-1-1">
-        <h3 class="uk-text-lead">Best Selling Games</h3>
+        <h3 class="uk-text-lead">Top Rating Games</h3>
         <div class="js-store">
-            <div class="swiper">
+            <div class="swiper p-3">
                 <div class="swiper-wrapper">
 
                     @foreach($bestGames as $game)
@@ -118,12 +114,12 @@
                         <div class="game-card">
                             <div class="game-card__box">
                                 <div class="game-card__media">
-                                    <a href="{{ url('games/' . $game->id) }}">
-                                        <img src="{{ asset('user/assets/img/gamecovers/' . $game->cover) }}" alt="{{ $game->title }}" />
+                                    <a href="{{ route('games.show', ['id' => $game->id]) }}">
+                                        <img src="data:image/png;base64,{{ $game->cover }}" alt="{{ $game->title }}" />
                                     </a>
                                 </div>
                                 <div class="game-card__info">
-                                    <a class="game-card__title">{{ $game->title }}</a>
+                                    <a href="{{ route('games.show', ['id' => $game->id]) }}" class="game-card__title">{{ $game->title }}</a>
                                     <div class="game-card__genre">{{ $game->genre }}</div>
                                     <div class="game-card__rating-and-price">
                                         <div class="game-card__rating">
@@ -131,23 +127,18 @@
                                             <i class="ico_star"></i>
                                         </div>
                                     </div>
-                                    <div class="game-card__bottom">
-                                        <div class="game-card__platform">
-                                            @if($game->platform == 'Windows')
-                                            <i class="ico_windows"></i>
-                                            @elseif($game->platform == 'Apple')
-                                            <i class="ico_apple"></i>
-                                            @else
-                                            <i class="ico_windows"></i>
-                                            <i class="ico_apple"></i>
-                                            @endif
-                                        </div>
-                                        <div class="fl-gp-button">
-                                        <a class="fl-gp-button" rel="join"> @if($game->price == 0.00)
-                                            Free
-                                            @else
-                                            ${{ $game->price }}
-                                            @endif </a>
+                                    <div class="card-2-bottom mt-30">
+                                        <div class="row">
+                                            <div class="col-lg-7 col-7">
+                                                @if($game->price == null)
+                                                <p class="lead fw-bold">Free</p>
+                                                @else
+                                                <p class="lead fw-bold">${{$game->price}}</p>
+                                                @endif
+                                            </div>
+                                            <div class="col-lg-5 col-5 text-end">
+                                                <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -158,29 +149,27 @@
 
                 </div>
 
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
             </div>
         </div>
     </div>
+
     <div class="uk-width-1-1">
-        <h3 class="uk-text-lead">Simulation Games</h3>
+        <h3 class="uk-text-lead">Free Games</h3>
         <div class="js-store">
-            <div class="swiper">
+            <div class="swiper p-3">
                 <div class="swiper-wrapper">
 
-                    @foreach($bestGames as $game)
+                    @foreach($freeGames as $game)
                     <div class="swiper-slide">
                         <div class="game-card">
                             <div class="game-card__box">
                                 <div class="game-card__media">
-                                    <a href="{{ url('games/' . $game->id) }}">
-                                        <img src="{{ asset('user/assets/img/gamecovers/' . $game->cover) }}" alt="{{ $game->title }}" />
+                                    <a href="{{ route('games.show', ['id' => $game->id]) }}">
+                                        <img src="data:image/png;base64,{{ $game->cover }}" alt="{{ $game->title }}" />
                                     </a>
                                 </div>
                                 <div class="game-card__info">
-                                    <a class="game-card__title">{{ $game->title }}</a>
+                                    <a href="{{ route('games.show', ['id' => $game->id]) }}" class="game-card__title">{{ $game->title }}</a>
                                     <div class="game-card__genre">{{ $game->genre }}</div>
                                     <div class="game-card__rating-and-price">
                                         <div class="game-card__rating">
@@ -188,23 +177,18 @@
                                             <i class="ico_star"></i>
                                         </div>
                                     </div>
-                                    <div class="game-card__bottom">
-                                        <div class="game-card__platform">
-                                            @if($game->platform == 'Windows')
-                                            <i class="ico_windows"></i>
-                                            @elseif($game->platform == 'Apple')
-                                            <i class="ico_apple"></i>
-                                            @else
-                                            <i class="ico_windows"></i>
-                                            <i class="ico_apple"></i>
-                                            @endif
-                                        </div>
-                                        <div class="fl-gp-button">
-                                        <a class="fl-gp-button" rel="join"> @if($game->price == 0.00)
-                                            Free
-                                            @else
-                                            ${{ $game->price }}
-                                            @endif </a>
+                                    <div class="card-2-bottom mt-30">
+                                        <div class="row">
+                                            <div class="col-lg-7 col-7">
+                                                @if($game->price == null)
+                                                <p class="lead fw-bold">Free</p>
+                                                @else
+                                                <p class="lead fw-bold">${{$game->price}}</p>
+                                                @endif
+                                            </div>
+                                            <div class="col-lg-5 col-5 text-end">
+                                                <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -215,66 +199,6 @@
 
                 </div>
 
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </div>
-    <div class="uk-width-1-1">
-        <h3 class="uk-text-lead">Arcade Games</h3>
-        <div class="js-store">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-
-                    @foreach($bestGames as $game)
-                    <div class="swiper-slide">
-                        <div class="game-card">
-                            <div class="game-card__box">
-                                <div class="game-card__media">
-                                    <a href="{{ url('games/' . $game->id) }}">
-                                        <img src="{{ asset('user/assets/img/gamecovers/' . $game->cover) }}" alt="{{ $game->title }}" />
-                                    </a>
-                                </div>
-                                <div class="game-card__info">
-                                    <a class="game-card__title">{{ $game->title }}</a>
-                                    <div class="game-card__genre">{{ $game->genre }}</div>
-                                    <div class="game-card__rating-and-price">
-                                        <div class="game-card__rating">
-                                            <span>{{ $game->rating }}</span>
-                                            <i class="ico_star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="game-card__bottom">
-                                        <div class="game-card__platform">
-                                            @if($game->platform == 'Windows')
-                                            <i class="ico_windows"></i>
-                                            @elseif($game->platform == 'Apple')
-                                            <i class="ico_apple"></i>
-                                            @else
-                                            <i class="ico_windows"></i>
-                                            <i class="ico_apple"></i>
-                                            @endif
-                                        </div>
-                                        <div class="fl-gp-button">
-                                        <a class="fl-gp-button" rel="join"> @if($game->price == 0.00)
-                                            Free
-                                            @else
-                                            ${{ $game->price }}
-                                            @endif </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
-                </div>
-
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-pagination"></div>
             </div>
         </div>
     </div>

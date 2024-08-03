@@ -12,7 +12,11 @@
         <span class="decore-rb"></span>
     </div>
     <h1 class="uk-page-heading-h">Watch Gameplays</h1>
-    <p class="uk-heading-text">Search members from all around the world!</p>
+    <p class="uk-heading-text">
+    <div class="search">
+        <div class="search__input"><i class="ico_search"></i><input type="search" name="search" placeholder="Search" id="search"></div>
+    </div>
+    </p>
 </div>
 
 

@@ -3,39 +3,7 @@
 @section('title', 'Premium Games')
 
 @section('content')
-<div class="uk-grid" data-uk-grid>
-    <div class="widjet --filters">
-        <h1>-> Premium Games</h1>
-        <div class="widjet__body">
-            <div class="uk-grid uk-child-width-1-6@xl uk-child-width-1-3@l uk-child-width-1-2@s uk-flex-middle uk-grid-small" data-uk-grid>
-                <div class="uk-width-1-1">
-                    <div class="search">
-                        <div class="search__input"><i class="ico_search"></i><input type="search" name="search" placeholder="Search" id="search"></div>
-                        <div class="search__btn"><button type="button"><i class="ico_microphone"></i></button></div>
-                    </div>
-                </div>
-                <div><select class="js-select" id="priceFilter">
-                        <option value="">Sort By: Price</option>
-                        <option value="10-100">$10 - $100</option>
-                        <option value="100-300">$100 - $300</option>
-                        <option value="300-400">$300 - $400</option>
-                        <option value="400-1000">$400 - $1000</option>
-                    </select></div>
-                <div><select class="js-select" id="categoryFilter">
-                        <option value="">Category: All</option>
-                        @foreach($categories as $category)
-                        <option value="{{ strtolower($category->category) }}">{{ $category->category }}</option>
-                        @endforeach
-                    </select></div>
-                <div><select class="js-select" id="platformFilter">
-                        <option value="">Platform: All</option>
-                        <option value="windows">Windows</option>
-                        <option value="apple">Apple</option>
-                    </select></div>
-                <div class="uk-text-right"><a href="#!">25 items</a></div>
-            </div>
-        </div>
-    </div>
+<!-- <div class="uk-grid" data-uk-grid>
     <div class="uk-width-1-1">
         <div class="js-store">
             <div class="row my-2">
@@ -89,44 +57,98 @@
             </div>
         </div>
     </div>
+</div> -->
+<div class="uk-page-heading uk-height-medium uk-height-max-medium uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="assets/img/heading8.jpg" uk-img uk-parallax="bgy: -70">
+    <div class="fl-hd-cover">
+        <span class="decore-lt"></span>
+        <span class="decore-lb"></span>
+        <span class="decore-rt"></span>
+        <span class="decore-rb"></span>
+    </div>
+    <h1 class="uk-page-heading-h">Premium Games</h1>
+    <p class="uk-heading-text">
+    <div class="search">
+        <div class="search__input"><i class="ico_search"></i><input type="search" name="search" placeholder="Search" id="search"></div>
+    </div>
+    </p>
 </div>
+
+<div data-uk-filter="target: .js-filter">
+    <div class="fl-subnav">
+        <ul class=" uk-subnav uk-subnav-pill">
+            <li class="uk-active" data-uk-filter-control><a href="#">All</a></li>
+            @foreach($categories as $category)
+            <li data-uk-filter-control="[data-type='{{ $category->category }}']"><a href="#">{{ $category->category }}</a></li>
+            @endforeach
+        </ul>
+    </div>
+    <ul class="js-filter uk-grid-small uk-child-width-1-1 uk-child-width-1-5@xl uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s" data-uk-grid>
+        @foreach($premiumGames as $game)
+        <li data-type="{{ $game->category }}">
+            <div class="game-card">
+                <div class="game-card__box">
+                    <div class="game-card__media">
+                        <a href="{{ route('games.show', ['id' => $game->id]) }}">
+                            <img src="data:image/png;base64,{{ $game->cover }}" alt="{{ $game->title }}" />
+                        </a>
+                    </div>
+                    <div class="game-card__info">
+                        <a href="{{ route('games.show', ['id' => $game->id]) }}" class="game-card__title">{{ $game->title }}</a>
+                        <div class="game-card__genre">{{ $game->genre }}</div>
+                        <div class="game-card__rating-and-price">
+                            <div class="game-card__rating">
+                                <span>{{ $game->rating }}</span>
+                                <i class="ico_star"></i>
+                            </div>
+                        </div>
+                        <div class="card-2-bottom mt-30">
+                            <div class="row">
+                                <div class="col-lg-7 col-7">
+                                    @if($game->price == null)
+                                    <p class="lead fw-bold">Free</p>
+                                    @else
+                                    <p class="lead fw-bold">${{$game->price}}</p>
+                                    @endif
+                                </div>
+                                <div class="col-lg-5 col-5 text-end">
+                                    <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        @endforeach
+    </ul>
+</div>
+
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('search');
-        const categoryFilter = document.getElementById('categoryFilter');
-        const platformFilter = document.getElementById('platformFilter');
-        const priceFilter = document.getElementById('priceFilter');
-        const gameCards = document.querySelectorAll('.col-md-3');
+        const gameCards = document.querySelectorAll('.js-filter > li');
 
         searchInput.addEventListener('input', filterGames);
-        categoryFilter.addEventListener('change', filterGames);
-        platformFilter.addEventListener('change', filterGames);
-        priceFilter.addEventListener('change', filterGames);
 
         function filterGames() {
             const searchText = searchInput.value.toLowerCase();
-            const selectedCategory = categoryFilter.value.toLowerCase();
-            const selectedPlatform = platformFilter.value.toLowerCase();
-            const selectedPrice = priceFilter.value;
 
             gameCards.forEach(card => {
                 const title = card.querySelector('.game-card__title').textContent.toLowerCase();
                 const genre = card.querySelector('.game-card__genre').textContent.toLowerCase();
-                const platformIcons = card.querySelectorAll('.game-card__platform i');
-                const priceText = card.querySelector('.game-card__price span').textContent.replace('$', '');
-                const price = parseFloat(priceText);
+                const category = card.getAttribute('data-type').toLowerCase();
+                const priceElement = card.querySelector('.lead.fw-bold');
+                const priceText = priceElement ? priceElement.textContent.replace('$', '').toLowerCase() : 'free';
+                const price = priceText === 'free' ? 0 : parseFloat(priceText);
 
-                let matchesSearch = title.includes(searchText);
-                let matchesCategory = selectedCategory === '' || genre.includes(selectedCategory);
-                let matchesPlatform = selectedPlatform === '' || Array.from(platformIcons).some(icon => icon.classList.contains(`ico_${selectedPlatform}`));
-                let matchesPrice = selectedPrice === '' || (price >= parseFloat(selectedPrice.split('-')[0]) && price <= parseFloat(selectedPrice.split('-')[1]));
-
-                if (matchesSearch && matchesCategory && matchesPlatform && matchesPrice) {
+                let matchesSearch = title.includes(searchText) || genre.includes(searchText) || category.includes(searchText);
+                if (matchesSearch) {
                     card.style.display = '';
                 } else {
                     card.style.display = 'none';
+                    document.write('No result found')
                 }
             });
         }

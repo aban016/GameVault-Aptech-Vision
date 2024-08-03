@@ -28,7 +28,8 @@ class UsersController extends Controller
     public function dashboard(){
         $categories = Category::where('is_active', true)->get();
         $bestGames = Game::where('rating', '>', 4)->get();
-        return view('dashboard', compact('bestGames', 'categories'));
+        $freeGames = Game::where('price', null)->get();
+        return view('dashboard', compact('bestGames', 'categories', 'freeGames'));
     }
 
     public function profile(Request $request)
@@ -49,14 +50,14 @@ class UsersController extends Controller
     }
 
     public function freeGames(){
-        $freeGames = Game::where('sale', false)->get();
-        $totalFreeGames = Game::where('sale', false)->count();
+        $freeGames = Game::where('price', null)->get();
+        $totalFreeGames = Game::where('price', null)->count();
         $categories = Category::where('is_active', true)->get();
         return view('free-games', compact('freeGames', 'categories', 'totalFreeGames'));
     }
 
     public function premiumGames(){
-        $premiumGames = Game::where('sale', true)->get();
+        $premiumGames = Game::whereNotNull('price')->get();
         $categories = Category::where('is_active', true)->get();
         return view('premium-games', compact('categories', 'premiumGames'));
     }

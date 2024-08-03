@@ -2778,14 +2778,24 @@ select:focus {
 }
 
 .game-card__title {
-    -o-text-overflow: ellipsis;
+    /* -o-text-overflow: ellipsis;
     overflow: hidden;
     color: #353535;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
     line-height: 1.31;
-    padding-top: 10px;
+    padding-top: 10px; */
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    color: #353535;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.31;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-bottom: 10px;
 }
 
 

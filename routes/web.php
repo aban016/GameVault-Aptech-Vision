@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('user/favourites', [UsersController::class, 'favourite'])->name('user.favourite');
     Route::get('user/wallet', [UsersController::class, 'wallet'])->name('user.wallet');
 
+    Route::get('games/{id}', [GamesController::class, 'show'])->name('games.show');
+
 });
     
 

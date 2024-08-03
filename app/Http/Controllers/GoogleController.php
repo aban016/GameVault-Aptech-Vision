@@ -6,21 +6,25 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite; 
+use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    public function redirectToGoogle(){
+    public function redirectToGoogle()
+    {
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback(){
+    public function handleGoogleCallback()
+    {
         $user = Socialite::driver('google')->user();
-        $findUser = User::where('google_id',$user->id)->first();
-        if($findUser){
+        $findUser = User::where('google_id', $user->id)->first();
+        if ($findUser) {
             Auth::login($findUser);
-        }
-        else{
+            if ($findUser->role == 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+        } else {
             $newUser = User::updateOrCreate([
                 'email' => $user->email,
             ], [
@@ -29,10 +33,10 @@ class GoogleController extends Controller
                 'password' => encrypt('12345678'),
                 'profile_pic' => $user->avatar,
             ]);
-         
+
             Auth::login($newUser);
         }
-        
+
         return redirect('/dashboard');
     }
 }
