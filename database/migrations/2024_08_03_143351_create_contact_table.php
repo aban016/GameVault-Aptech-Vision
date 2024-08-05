@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('contact', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone')->nullable();
-            $table->text('message');
-            $table->boolean('is_new')->default(true);
-            $table->timestamps(); 
+            $table->string('subject');
+            $table->string('detail');
+            $table->longText('attach_file');
+            $table->unsignedBigInteger('contact_by');
+            $table->timestamps();
+            
+            $table->foreign('contact_by')->references('id')->on('users')->onDelete('cascade');
         });
+        
     }
 
     /**

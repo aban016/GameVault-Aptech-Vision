@@ -51,7 +51,6 @@
     </div>
     <!-- Loader end-->
 
-
     <div class="page-wrapper">
         <header class="page-header">
             <div class="page-header__inner">
@@ -112,7 +111,6 @@
                                 </a>
                                 <div uk-dropdown="mode: click">
                                     <ul class="uk-nav uk-dropdown-nav">
-                                        <!-- Authentication -->
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                                 @csrf
@@ -125,7 +123,7 @@
                                 </div>
                                 @else
                                 <a href="{{ route('login') }}" class="fw-bold" style="font-size: medium;">
-                                   <img src="{{ asset('user/assets/img/svgico/profile-user.png') }}" style="width: 24px;" alt="user"> Sign in
+                                    <img src="{{ asset('user/assets/img/svgico/profile-user.png') }}" style="width: 24px;" alt="user"> Sign in
                                 </a>
                                 @endauth
                             </li>
@@ -160,30 +158,72 @@
 
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Others</span></li>
                         <li class="{{ request()->routeIs('gameplays') ? 'uk-active' : '' }}"><a href="{{ route('gameplays') }}"><i class="ico_streams"></i><span>GamePlays</span></a></li>
-                                    
+
+                        @auth
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Support</span></li>
-                            <li><a href="#modal-report" data-uk-toggle><i class="ico_report"></i><span>Report</span></a></li>
+                        <li><a href="#modal-report" data-uk-toggle><i class="ico_report"></i><span>Report</span></a></li>
+                        @endauth
                     </ul>
                 </div>
             </aside>
-
 
             <main class="page-main">
                 @yield('content')
             </main>
 
-
-
-
         </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('admin/assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+
     @stack('scripts')
 
-</body>
+    <!-- Report -->
+    <div class="page-modals">
+        <div class="uk-flex-top" id="modal-report" data-uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical"><button class="uk-modal-close-default" type="button" data-uk-close></button>
+                <h2 class="uk-modal-title">Send Report</h2>
+                <form class="uk-form-stacked" method="post" action="{{ route('send.contact') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="uk-margin">
+                        <div class="uk-form-label">Subject</div>
+                        <div class="uk-form-controls">
+                            <input type="text" name="subject" placeholder="Subject" required>
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <div class="uk-form-label">Details</div>
+                        <div class="uk-form-controls">
+                            <textarea class="form-control" name="detail" placeholder="Try to include all details..." required></textarea>
+                        </div>
+                        <div class="uk-form-controls uk-margin-small-top">
+                            <div data-uk-form-custom>
+                                <input type="file" name="attach_file">
+                                <button class="uk-button uk-button-default" type="button" tabindex="-1">
+                                    <i class="ico_attach-circle"></i>
+                                    <span>Attach Screenshot</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <div class="uk-grid uk-flex-right fl-form-action" data-uk-grid>
+                            <div>
+                                <button type="reset" class="uk-button uk-button-small uk-button-link">Cancel</button>
+                            </div>
+                            <div>
+                                <button type="submit" class="uk-button uk-button-small uk-button-danger">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
+            </div>
+        </div>
+    </div>
+
+</body>
 
 </html>

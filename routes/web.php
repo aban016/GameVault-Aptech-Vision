@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GameplayController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GoogleController;
@@ -33,6 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('user/wallet', [UsersController::class, 'wallet'])->name('user.wallet');
 
     Route::get('games/{id}', [GamesController::class, 'show'])->name('games.show');
+
+    Route::post('sending-report', [ContactController::class, 'store'])->name('send.contact');
 
 });
     
@@ -66,6 +69,12 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('admin/gameplay', [GameplayController::class, 'index'])->name('admin.gameplay');
     Route::delete('admin/gameplay/{gameplay}', [CategoryController::class, 'destroy'])->name('admin.gameplay.delete');
 });
+
+// Response page
+Route::get('message', function () {
+    return view('response');
+})->name('response');
+
 
 // Google Auth
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
