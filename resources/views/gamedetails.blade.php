@@ -16,8 +16,8 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             @if($game->video)
-                                <iframe width="100%" height="550" src="{{ $game->video }}" title="{{ $game->title }} Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                                </iframe>
+                            <iframe width="100%" height="550" src="{{ $game->video }}" title="{{ $game->title }} Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                            </iframe>
                             @endif
                         </div>
                         <div class="swiper-slide"><img src="data:image/png;base64,{{ $game->cover }}" alt="{{ $game->title }}"></div>
@@ -29,8 +29,8 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             @if($game->video)
-                                <iframe width="100%" src="{{ $game->video }}" title="{{ $game->title }} Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                                </iframe>
+                            <iframe width="100%" src="{{ $game->video }}" title="{{ $game->title }} Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                            </iframe>
                             @endif
                         </div>
                         <div class="swiper-slide"><img src="data:image/png;base64,{{ $game->cover }}" alt="{{ $game->title }}"></div>
@@ -85,10 +85,44 @@
             @else
             <div class="game-profile-price__value">${{ $game->price }} USD</div>
             @endif
-            <a href="{{ route('stripe.checkout',['price' => $game->price,'product' => $game->title]) }}" class="uk-button uk-button-buy uk-width-1-1" type="button"><span class="ico_shopping-cart"></span><span>Buy Now</span></a>
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="uk-button uk-button-buy uk-width-1-1" type="button"><span class="ico_shopping-cart"></span><span>Buy Now</span></button>
             <button class="uk-button uk-button-favorite uk-width-1-1" type="button"><span class="ico_add-square"></span><span>Add to Favourites</span></button>
         </div>
     </div>
 </div>
+
+<!-- Checkout Platforms Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Select Payment Method</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row p-2">
+                    <div class="col-md-6">
+                        <a href="{{ route('stripe.checkout',['price' => $game->price,'product' => $game->title]) }}">
+                            <div class="card shadow border-0 p-3 text-center" style="border-radius: 2rem;">
+                                <img src="{{ asset('user/assets/img/payment/stripe.png') }}" class="mx-auto" width="150px" alt="Stripe">
+                                <h5>Pay with Stripe</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="">
+                            <div class="card shadow border-0 p-3 text-center" style="border-radius: 2rem;">
+                                <img src="{{ asset('user/assets/img/payment/paypal.png') }}" class="mx-auto" width="150px" alt="Paypal">
+                                <h5>Pay with Paypal</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @stop

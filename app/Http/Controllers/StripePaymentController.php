@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Game;
+use App\Models\UserGame;
+use Carbon\Carbon;
 use Stripe;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -52,7 +56,20 @@ class StripePaymentController extends Controller
     {
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
-        $response = $stripe->checkout->sessions->retrieve($request->session_id);
+        $response = $stripe->checkout->sessions->retrieve($request->session_id, [
+            'expand' => ['line_items'],
+        ]);
+    
+        $productName = $response->line_items->data[0]->description;
+    
+        $game = Game::where('title', $productName)->first();
+    
+        if ($game) {
+            UserGame::create([
+                'user_id' => Auth::id(),
+                'game_id' => $game->id,
+            ]);
+        }
 
         return redirect()->route('response')->with('success', 'Payment Succesful! Your purchased game is available in your library.');
     }
