@@ -85,7 +85,7 @@
             @else
             <div class="game-profile-price__value">${{ $game->price }} USD</div>
             @endif
-            <button class="uk-button uk-button-buy uk-width-1-1" type="button"><span class="ico_shopping-cart"></span><span>Buy Now</span></button>
+            <a href="{{ route('stripe.checkout',['price' => $game->price,'product' => $game->title]) }}" class="uk-button uk-button-buy uk-width-1-1" type="button"><span class="ico_shopping-cart"></span><span>Buy Now</span></a>
             <button class="uk-button uk-button-favorite uk-width-1-1" type="button"><span class="ico_add-square"></span><span>Add to Favourites</span></button>
         </div>
     </div>

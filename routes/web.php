@@ -7,6 +7,7 @@ use App\Http\Controllers\GameplayController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -79,5 +80,12 @@ Route::get('message', function () {
 // Google Auth
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
+// Stripe
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe','stripe')->name('stripe.index');
+    Route::get('stripe/checkout','stripeCheckout')->name('stripe.checkout');
+    Route::get('stripe/checkout/success','stripeCheckoutSuccess')->name('stripe.checkout.success');
+});
 
 require __DIR__ . '/auth.php';
