@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-        </li>   
+        </li>
         @endforeach <!-- Gameplays End Loop -->
     </ul>
 </div>

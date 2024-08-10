@@ -163,6 +163,169 @@
 
             <div class="row" data-type="listgameplay">
                 <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @if($userGameplays->isEmpty())
+                            <div class="stream-item">
+                                <div class="stream-item__box">
+                                    <div class="stream-item__body">
+                                        <div class="stream-item__title">No gameplays uploaded.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            @else
+                            @foreach($userGameplays as $gameplay)
+                            <div class="stream-item">
+                                <div class="stream-item__box">
+                                    <div class="stream-item__media" data-uk-lightbox="video-autoplay: true">
+                                        <iframe src="{{ $gameplay->video }}" width="800" height="200" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                        <div class="stream-item__info">
+                                            <div class="stream-item__status">New</div>
+                                        </div>
+                                        <div class="stream-item__body">
+                                            <div class="stream-item__title">{{ $gameplay->title }}</div>
+                                            <div class="stream-item__nicname">
+                                                Uploaded by:
+                                                @if(isset($users[$gameplay->uploaded_by]))
+                                                {{ $users[$gameplay->uploaded_by]->name }}
+                                                @else
+                                                Unknown
+                                                @endif
+                                            </div>
+                                            <div class="stream-item__time"><i class="icon-calendar"></i>{{ $gameplay->created_at->diffForHumans() }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-type="uploadgameplay">
+                <div class="col-xl-12">
+                    <div class="section-box">
+                        <div class="container">
+                            <div class="panel-white mb-30">
+                                <div class="box-padding">
+                                    <form method="post" action="" enctype="multipart/form-data" class="mt-6 space-y-6">
+                                        @csrf
+
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group mb-30">
+                                                    <label class="font-sm mb-10">Gameplay Title *</label>
+                                                    <input class="form-control" id="title" name="title" type="text" placeholder="Enter game title" value="{{ old('title') }}" required autofocus>
+                                                    <x-input-error class="mt-2" :messages="$errors->get('title')" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group mb-30">
+                                                    <label class="font-sm mb-10">Gameplay Video Iframe Source Link *</label>
+                                                    <input class="form-control" id="video" name="video" type="text" required>
+                                                    <x-input-error class="mt-2" :messages="$errors->get('video')" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group mb-30">
+                                                    <label class="font-sm mb-10">Category *</label>
+                                                    <select name="category" class="form-control">
+                                                        <option value=""></option>
+                                                        @foreach($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group mt-10">
+                                                    <button class="btn btn-default btn-brand icon-tick">{{ __('Upload Game') }}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" data-type="accountdeletion">
+                <div class="col-xl-12">
+                    <div class="section-box">
+                        <div class="container">
+                            <div class="panel-white mb-30">
+                                <div class="box-padding">
+                                    <section class="space-y-6">
+                                        <header>
+                                            <h2 class="text-lg font-medium text-gray-900">
+                                                {{ __('Delete Account') }}
+                                            </h2>
+
+                                            <p class="mt-1 text-sm text-gray-600">
+                                                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+                                            </p>
+                                        </header>
+
+                                        <div class="form-group mt-10">
+                                            <button type="button" class="btn btn-default" data-bs-toggle="modal" data-bs-target="#confirmUserDeletionModal">
+                                                {{ __('Delete Account') }}
+                                            </button>
+                                        </div>
+
+                                        <div class="modal fade" id="confirmUserDeletionModal" tabindex="-1" aria-labelledby="confirmUserDeletionLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmUserDeletionLabel">{{ __('Are you sure you want to delete your account?') }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+                                                        </p>
+                                                        <form method="post" action="{{ route('profile.destroy') }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <div class="form-group mb-30">
+                                                                <label for="password" class="sr-only">{{ __('Password') }}</label>
+                                                                <input
+                                                                    class="form-control"
+                                                                    id="password"
+                                                                    name="password"
+                                                                    type="password"
+                                                                    placeholder="{{ __('Password') }}"
+                                                                    required />
+                                                                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                    {{ __('Cancel') }}
+                                                                </button>
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    {{ __('Delete Account') }}
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
