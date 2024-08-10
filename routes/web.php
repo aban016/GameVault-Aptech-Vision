@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GameplayController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\UsersController;
@@ -86,6 +87,13 @@ Route::controller(StripePaymentController::class)->group(function(){
     Route::get('stripe','stripe')->name('stripe.index');
     Route::get('stripe/checkout','stripeCheckout')->name('stripe.checkout');
     Route::get('stripe/checkout/success','stripeCheckoutSuccess')->name('stripe.checkout.success');
+});
+
+// Paypal
+Route::controller(PayPalController::class)->group(function(){
+    Route::get('paypal/checkout','checkout')->name('paypal.checkout');
+    Route::get('paypal/success','success')->name('paypal.success');
+    Route::get('paypal/cancel','cancel')->name('paypal.cancel');
 });
 
 require __DIR__ . '/auth.php';

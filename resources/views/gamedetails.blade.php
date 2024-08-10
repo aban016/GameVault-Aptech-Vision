@@ -110,10 +110,10 @@
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a href="">
+                        <a href="{{ route('paypal.checkout',['price' => $game->price,'product' => $game->title]) }}">
                             <div class="card shadow border-0 p-3 text-center" style="border-radius: 2rem;">
-                                <img src="{{ asset('user/assets/img/payment/paypal.png') }}" class="mx-auto" width="150px" alt="Paypal">
-                                <h5>Pay with Paypal</h5>
+                                <img src="{{ asset('user/assets/img/payment/paypal.png') }}" class="mx-auto" width="150px" alt="PayPal">
+                                <h5>Pay with PayPal</h5>
                             </div>
                         </a>
                     </div>
