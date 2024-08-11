@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="uk-page-heading uk-height-medium uk-height-max-medium uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="assets/img/heading8.jpg" uk-img uk-parallax="bgy: -70">
+<div class="uk-page-heading uk-height-medium uk-height-max-medium uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="{{ asset('user/assets/img/fl-heading01.jpg') }}" uk-img uk-parallax="bgy: -70">
     <div class="fl-hd-cover">
         <span class="decore-lt"></span>
         <span class="decore-lb"></span>
@@ -36,7 +36,7 @@
             <div class="stream-item">
                 <div class="stream-item__box">
                     <div class="stream-item__media" data-uk-lightbox="video-autoplay: true">
-                    <iframe src="{{ $gameplay->video }}" width="800" height="200" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <iframe src="{{ $gameplay->video }}" width="800" height="200" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         <div class="stream-item__info">
                             <div class="stream-item__status">New</div>
                         </div>
@@ -58,5 +58,34 @@
         @endforeach <!-- Gameplays End Loop -->
     </ul>
 </div>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search');
+        const streamItems = document.querySelectorAll('.stream-item');
+
+        searchInput.addEventListener('input', filterStreams);
+
+        function filterStreams() {
+            const searchText = searchInput.value.toLowerCase();
+
+            streamItems.forEach(item => {
+                const title = item.querySelector('.stream-item__title').textContent.toLowerCase();
+                const uploader = item.querySelector('.stream-item__nicname').textContent.toLowerCase();
+                const status = item.querySelector('.stream-item__status').textContent.toLowerCase();
+
+                let matchesSearch = title.includes(searchText) || uploader.includes(searchText) || status.includes(searchText);
+
+                if (matchesSearch) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+@endpush
 
 @stop

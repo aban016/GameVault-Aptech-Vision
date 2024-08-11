@@ -149,7 +149,7 @@
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Account</span></li>
                         <li class="{{ request()->routeIs('user.profile') ? 'uk-active' : '' }}"><a href="{{ route('user.profile') }}"><i class="ico_profile"></i><span>{{ __('Profile') }}</span></a></li>
                         <li class="{{ request()->routeIs('user.favourite') ? 'uk-active' : '' }}"><a href="{{ route('user.favourite') }}"><i class="ico_favourites"></i><span class="uk-nav-text">Favourites</span></a></li>
-                        <li class="{{ request()->routeIs('user.wallet') ? 'uk-active' : '' }}"><a href="{{ route('user.wallet') }}"><i class="ico_wallet"></i><span>Wallet</span></a></li>
+                        <li class="{{ request()->routeIs('user.library') ? 'uk-active' : '' }}"><a href="{{ route('user.library') }}"><i class="ico_wallet"></i><span>Library</span></a></li>
                         @endauth
 
                         <li class="uk-nav-header"><i class="uk-nav-devider"></i><span>Store</span></li>

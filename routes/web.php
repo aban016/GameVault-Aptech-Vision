@@ -3,37 +3,36 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\GameplayController;
 use App\Http\Controllers\GamesController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\UserGamesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return redirect('dashboard');
-// });
+
 Route::get('/', [UsersController::class, 'dashboard'])->name('/');
 
 Route::get('/free-games', [UsersController::class, 'freeGames'])->name('freeGames');
 Route::get('/premium-games', [UsersController::class, 'premiumGames'])->name('premiumGames');
 Route::get('/gamplays', [UsersController::class, 'gameplays'])->name('gameplays');
-
-// Route::get('/dashboard', function () {
-//     $categories = Category::where('is_active', true)->get();
-//     $bestGames = Game::where('rating', '>', 4)->get();
-//     return view('dashboard', compact('bestGames', 'categories'));
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/gamplays/upload', [GameplayController::class, 'store'])->name('gameplays.upload');
+Route::delete('/gamplays/delete', [GameplayController::class, 'destroy'])->name('gameplays.delete');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
 
 
     Route::get('user/profile', [UsersController::class, 'profile'])->name('user.profile');
-    Route::get('user/favourites', [UsersController::class, 'favourite'])->name('user.favourite');
-    Route::get('user/wallet', [UsersController::class, 'wallet'])->name('user.wallet');
+    Route::get('user/favourites', [FavouriteController::class, 'index'])->name('user.favourite');
+    Route::get('user/favourites/{game_id}', [FavouriteController::class, 'store'])->name('user.favourite.add');
+    Route::get('user/favourites/{game_id}/delete', [FavouriteController::class, 'destroy'])->name('user.favourite.remove');
+    Route::get('user/library', [UserGamesController::class, 'index'])->name('user.library');
+    Route::get('user/library/{game_id}/delete', [UserGamesController::class, 'destroy'])->name('user.library.remove');
 
     Route::get('games/{id}', [GamesController::class, 'show'])->name('games.show');
 
@@ -48,7 +47,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Route::get('admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin']);
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');

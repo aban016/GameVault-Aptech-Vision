@@ -85,8 +85,39 @@
             @else
             <div class="game-profile-price__value">${{ $game->price }} USD</div>
             @endif
-            <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="uk-button uk-button-buy uk-width-1-1" type="button"><span class="ico_shopping-cart"></span><span>Buy Now</span></button>
-            <button class="uk-button uk-button-favorite uk-width-1-1" type="button"><span class="ico_add-square"></span><span>Add to Favourites</span></button>
+            @php
+            $isPurchased = \App\Models\UserGame::where('user_id', auth()->id())
+            ->where('game_id', $game->id)
+            ->exists();
+            @endphp
+
+            @if($isPurchased)
+            <a href="{{ route('user.library') }}" class="uk-button uk-button-buy uk-width-1-1">
+                <span class="ico_library"></span><span>Go to Library</span>
+            </a>
+            @else
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="uk-button uk-button-buy uk-width-1-1" type="button">
+                <span class="ico_shopping-cart"></span><span>Buy Now</span>
+            </button>
+            @endif
+
+            @php
+            // Check if the game is already in the user's favourites
+            $isFavourite = \App\Models\Favourite::where('user_id', auth()->id())
+            ->where('game_id', $game->id)
+            ->exists();
+            @endphp
+
+            @if($isFavourite)
+            <a href="#" class="uk-button uk-button-favorite uk-width-1-1" style="pointer-events: none; opacity: 0.6;">
+                <span class="ico_add-square"></span><span>Already in Favourites</span>
+            </a>
+            @else
+            <a href="{{ route('user.favourite.add', ['game_id' => $game->id]) }}" class="uk-button uk-button-favorite uk-width-1-1">
+                <span class="ico_add-square"></span><span>Add to Favourites</span>
+            </a>
+            @endif
+
         </div>
     </div>
 </div>

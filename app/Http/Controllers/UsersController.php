@@ -39,17 +39,11 @@ class UsersController extends Controller
         $categories = Category::where('is_active', true)->orderBy('created_at', 'desc')->get();
         $createdDate = $user->created_at->format('F d, Y');
         $userGameplays = Gameplay::where('uploaded_by', Auth::id())->orderBy('created_at', 'desc')->get();
-
-        return view('profile', compact('user', 'createdDate', 'categories', 'userGameplays'));
+        $users = User::whereIn('id', $userGameplays->pluck('uploaded_by'))->get()->keyBy('id');
+        return view('profile', compact('user', 'createdDate', 'categories', 'userGameplays', 'users'));
     }
 
-    public function favourite(){
-        return view('wishlist');
-    }
 
-    public function wallet(){
-        return view('wallet');
-    }
 
     public function freeGames(){
         $freeGames = Game::where('price', null)->orderBy('created_at', 'desc')->get();

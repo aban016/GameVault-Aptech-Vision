@@ -3,7 +3,7 @@
 @section('title', 'Profile')
 
 @section('content')
-<div class="uk-page-heading uk-height-medium uk-height-max-medium uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="assets/img/heading8.jpg" uk-img uk-parallax="bgy: -70">
+<div class="uk-page-heading uk-height-medium uk-height-max-medium uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="{{ asset('user/assets/img/fl-heading01.jpg') }}" uk-img uk-parallax="bgy: -70">
     <div class="fl-hd-cover">
         <span class="decore-lt"></span>
         <span class="decore-lb"></span>
@@ -193,6 +193,13 @@
                                                 @endif
                                             </div>
                                             <div class="stream-item__time"><i class="icon-calendar"></i>{{ $gameplay->created_at->diffForHumans() }}</div>
+                                            <div class="mt-2 text-end">
+                                                <form action="{{ route('gameplays.delete', $gameplay->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +217,7 @@
                         <div class="container">
                             <div class="panel-white mb-30">
                                 <div class="box-padding">
-                                    <form method="post" action="" enctype="multipart/form-data" class="mt-6 space-y-6">
+                                    <form method="post" action="{{ route('gameplays.upload') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
                                         @csrf
 
                                         <div class="row">

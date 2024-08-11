@@ -13,7 +13,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner1.jpg') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner1.png') }}" alt="banner"></a>
 
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner2.jpg') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner2.png') }}" alt="banner"></a>
 
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner3.jpg') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner3.png') }}" alt="banner"></a>
 
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner4.jpg') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner4.png') }}" alt="banner"></a>
 
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner5.jpg') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner5.png') }}" alt="banner"></a>
 
                             </div>
                         </div>
@@ -53,7 +53,15 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner6.jpg') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner6.png') }}" alt="banner"></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="recommend-slide">
+                            <div class="tour-slide__box">
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner7.png') }}" alt="banner"></a>
 
                             </div>
                         </div>
@@ -87,8 +95,18 @@
                     <div class="swiper-slide">
                         <div class="game-card --horizontal">
                             <div class="game-card__box">
-                                <div class="game-card__media"><a href="10_game-profile.html"><img src="{{ asset('user/assets/img/banners/wallpaper.png') }}" alt="Alien Games" /></a></div>
-                                <div class="game-card__info"><a class="game-card__title" href="10_game-profile.html"> Online Gaming</a>
+                                <div class="game-card__media"><a><img src="{{ asset('user/assets/img/banners/comps.png') }}" alt="Alien Games" /></a></div>
+                                <div class="game-card__info"><a class="game-card__title"> Compitions 2k24 </a>
+                                    <div class="game-card__genre">Join us for the Ultimate Gaming Competition 2024 and test your skills against the best gamers from around the world.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="game-card --horizontal">
+                            <div class="game-card__box">
+                                <div class="game-card__media"><a><img src="{{ asset('user/assets/img/banners/wallpaper.png') }}" alt="Alien Games" /></a></div>
+                                <div class="game-card__info"><a class="game-card__title"> Watch Gaming Video</a>
                                     <div class="game-card__genre">Warring factions have brought the Origin System to the brink of destruction.</div>
 
                                     <div class="game-card__bottom">
@@ -120,30 +138,47 @@
                                 </div>
                                 <div class="game-card__info">
                                     <a href="{{ route('games.show', ['id' => $game->id]) }}" class="game-card__title">{{ $game->title }}</a>
-                                    <div class="game-card__genre">{{ $game->genre }}</div>
+                                    <div class="game-card__genre">{{ $game->category }}</div>
                                     <div class="game-card__rating-and-price">
                                         <div class="game-card__rating">
                                             <span>{{ $game->rating }}</span>
                                             <i class="ico_star"></i>
                                         </div>
+                                        <div class="game-card__price">
+                                            <span style="font-size: 12px; color: grey;">| {{ $game->platform }}</span>
+                                        </div>
                                     </div>
-                                    <div class="card-2-bottom mt-30">
+                                    <div class="game-card__bottom mt-30">
                                         <div class="row">
                                             <div class="col-lg-7 col-7">
-                                                @if($game->price == null)
-                                                <p class="lead fw-bold">Free</p>
+                                                <p class="game-card__price">
+                                                    @if($game->price == null)
+                                                    Free
+                                                    @else
+                                                    ${{ $game->price }}
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            @php
+                                            $isPurchased = \App\Models\UserGame::where('user_id', auth()->id())
+                                            ->where('game_id', $game->id)
+                                            ->exists();
+                                            @endphp
+
+                                            <div class="col-lg-5 col-5 text-end">
+                                                @if($isPurchased)
+                                                <a href="{{ route('user.library') }}" class="btn btn-default btn-brand" rel="join" style="text-decoration: line-through; pointer-events: none; opacity: 0.6;">Purchased</a>
                                                 @else
-                                                <p class="lead fw-bold">${{$game->price}}</p>
+                                                <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
                                                 @endif
                                             </div>
-                                            <div class="col-lg-5 col-5 text-end">
-                                                <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
-                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     @endforeach
 
@@ -170,30 +205,48 @@
                                 </div>
                                 <div class="game-card__info">
                                     <a href="{{ route('games.show', ['id' => $game->id]) }}" class="game-card__title">{{ $game->title }}</a>
-                                    <div class="game-card__genre">{{ $game->genre }}</div>
+                                    <div class="game-card__genre">{{ $game->category }}</div>
                                     <div class="game-card__rating-and-price">
                                         <div class="game-card__rating">
                                             <span>{{ $game->rating }}</span>
                                             <i class="ico_star"></i>
                                         </div>
+                                        <div class="game-card__price">
+                                            <span style="font-size: 12px; color: grey;">| {{ $game->platform }}</span>
+                                        </div>
                                     </div>
-                                    <div class="card-2-bottom mt-30">
+                                    <div class="game-card__bottom mt-30">
                                         <div class="row">
                                             <div class="col-lg-7 col-7">
-                                                @if($game->price == null)
-                                                <p class="lead fw-bold">Free</p>
+                                                <p class="game-card__price">
+                                                    @if($game->price == null)
+                                                    Free
+                                                    @else
+                                                    ${{ $game->price }}
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            @php
+                                            $isPurchased = \App\Models\UserGame::where('user_id', auth()->id())
+                                            ->where('game_id', $game->id)
+                                            ->exists();
+                                            @endphp
+
+                                            <div class="col-lg-5 col-5 text-end">
+                                                @if($isPurchased)
+                                                <a href="{{ route('user.library') }}" class="btn btn-default btn-brand" rel="join" style="text-decoration: line-through; pointer-events: none; opacity: 0.6;">Purchased</a>
                                                 @else
-                                                <p class="lead fw-bold">${{$game->price}}</p>
+                                                <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
                                                 @endif
                                             </div>
-                                            <div class="col-lg-5 col-5 text-end">
-                                                <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
-                                            </div>
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     @endforeach
 
