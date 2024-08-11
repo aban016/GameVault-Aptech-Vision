@@ -76,7 +76,7 @@
                 <div class="col-md-6">
                   <div class="form-group mb-30">
                     <label class="font-sm color-text-muted mb-10">Price</label>
-                    <input class="form-control" type="text" name="price" placeholder="$13.99 USD" value="{{ old('price', $game->price) }}">
+                    <input class="form-control" type="text" name="price" placeholder="{{ old('price', $game->price) }}" >
                     @error('price')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror

@@ -32,34 +32,40 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required',
-            'price' => 'nullable|numeric',
-            'rating' => 'nullable|numeric|min:0|max:5',
-            'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'category' => 'required|string|max:255',
+            'price' => 'nullable|numeric|',
+            'rating' => 'required|numeric|min:0|max:5',
+            'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y')),
             'developer' => 'required|string|max:255',
             'platform' => 'required|string|max:255',
-            'installation_file' => 'nullable|file',
-            'installation_file_link' => 'nullable|url',
-            'cover' => 'required|file',
-            'video' => 'nullable|string',
+            'cover' => 'required|image|max:2048',
+            'video' => 'required|string',
         ]);
-        $validatedData['user_id'] = Auth::id();
 
-        try {
-            if ($request->hasFile('cover')) {
-                $cover = $request->file('cover');
-                $coverContent = file_get_contents($cover->getRealPath());
-                $coverBase64 = base64_encode($coverContent);
-                $validatedData['cover'] = $coverBase64;
-            }
+        $cover = base64_encode(file_get_contents($request->file('cover')->path()));
 
-            Game::create($validatedData);
-            return redirect()->route('admin.games')->with('success', 'Game added successfully!');
-        } catch (\Exception $e) {
-            return redirect()->route('admin.games')->with('error', 'Failed to add game. Please try again.');
-        }
+        $game = new Game();
+        $game->title = $request->input('title');
+        $game->description = $request->input('description');
+        $game->category = $request->input('category');
+        $game->price = $request->input('price');
+        $game->sale = false;
+        $game->rating = $request->input('rating');
+        $game->user_id = auth()->user()->id;
+        $game->release_year = $request->input('release_year');
+        $game->developer = $request->input('developer');
+        $game->platform = $request->input('platform');
+        $game->installation_file = $request->input('installation_file');
+        $game->installation_file_link = $request->input('installation_file_link');
+        $game->cover = $cover;
+        $game->video = $request->input('video');
+
+        $game->save();
+
+        return redirect()->route('admin.games')->with('success', 'Game created successfully!');
     }
 
     /**
@@ -76,50 +82,59 @@ class GamesController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::where('is_active', true)->get();
         $game = Game::findOrFail($id);
-        return view('admin.games.edit', compact('game'));
+        return view('admin.games.update', compact('game', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Game $game)
     {
-        $validatedData = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required',
-            'price' => 'sometimes|required|numeric',
-            'sale' => 'sometimes|boolean',
-            'rating' => 'sometimes|nullable|numeric|min:0|max:5',
-            'release_year' => 'sometimes|required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
-            'developer' => 'sometimes|required|string|max:255',
-            'platform' => 'sometimes|required|string|max:255',
-            'installation_file' => 'sometimes|required|string',
-            'cover' => 'sometimes|required|file|mimes:jpeg,png,jpg',
-            'video' => 'sometimes|nullable|string',
+        // Validate the incoming request data
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'category' => 'required|string|max:255',
+            'price' => 'nullable|numeric',
+            'rating' => 'required|numeric|min:0|max:5',
+            'release_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y')),
+            'developer' => 'required|string|max:255',
+            'platform' => 'required|string|max:255',
+            'cover' => 'nullable|image|max:2048', // Make cover nullable for updates
+            'video' => 'required|string',
         ]);
 
-        try {
-            $game = Game::findOrFail($id);
-
-            if ($game->user_id !== Auth::id()) {
-                return redirect()->route('games.index')->with('error', 'Unauthorized access.');
-            }
-
-            if ($request->hasFile('cover')) {
-                $cover = $request->file('cover');
-                $coverContent = file_get_contents($cover->getRealPath());
-                $coverBase64 = base64_encode($coverContent);
-                $validatedData['cover'] = $coverBase64;
-            }
-
-            $game->update($validatedData);
-
-            return redirect()->route('admin.games')->with('success', 'Game updated successfully!');
-        } catch (\Exception $e) {
-            return redirect()->route('admin.games')->with('error', 'Failed to update game. Please try again.');
+        // Check if a new cover image is uploaded and convert it to base64
+        if ($request->hasFile('cover')) {
+            $cover = base64_encode(file_get_contents($request->file('cover')->path()));
+            $game->cover = $cover; // Update the cover only if a new one is uploaded
         }
+
+        // Update the game details
+        $game->title = $request->input('title');
+        $game->description = $request->input('description');
+        $game->category = $request->input('category');
+        $game->price = $request->input('price');
+        $game->sale = false; // Set sale to false as per your logic
+        $game->rating = $request->input('rating');
+        $game->user_id = auth()->user()->id; // Update with the ID of the logged-in user
+        $game->release_year = $request->input('release_year');
+        $game->developer = $request->input('developer');
+        $game->platform = $request->input('platform');
+        $game->installation_file = $request->input('installation_file');
+        $game->installation_file_link = $request->input('installation_file_link');
+        $game->video = $request->input('video'); // Update video as text
+
+        // Save the updated game record to the database
+        $game->update();
+
+        // Redirect or return a response
+        return redirect()->route('admin.games')->with('success', 'Game updated successfully!');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

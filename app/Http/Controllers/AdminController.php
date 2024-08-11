@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Redirect;
 class AdminController extends Controller
 {
     public function index(){
-        $totalMessages = Contact::where('is_new', 'true')->count();
+        $totalMessages = Contact::where('created_at', '>=', now()->subDay())->count();
         $totalUsers = User::where('role', 'user')->count();
         $totalGames = Game::count();
         $totalCategory = Category::count();

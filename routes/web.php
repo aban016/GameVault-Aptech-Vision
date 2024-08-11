@@ -59,6 +59,10 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('admin/games', [GamesController::class, 'index'])->name('admin.games');
     Route::get('admin/games/create', [GamesController::class, 'create'])->name('admin.games.create');
     Route::post('admin/games/add', [GamesController::class, 'store'])->name('admin.games.store');
+    Route::get('admin/games/{id}', [GamesController::class, 'edit'])->name('admin.games.edit');
+    Route::put('admin/games/update', [GamesController::class, 'update'])->name('admin.games.update');
+    Route::delete('admin/games/{id}', [GamesController::class, 'destroy'])->name('admin.games.delete');
+
     // Users
     Route::get('admin/users', [UsersController::class, 'index'])->name('admin.users');
     // Categories

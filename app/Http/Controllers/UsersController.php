@@ -65,7 +65,7 @@ class UsersController extends Controller
     }
 
     public function gameplays(){
-        $gameplays = Gameplay::all()->orderBy('created_at', 'desc');
+        $gameplays = Gameplay::orderBy('created_at', 'desc')->get();
         $categories = Category::where('is_active', true)->orderBy('created_at', 'desc')->get();
         $users = User::whereIn('id', $gameplays->pluck('uploaded_by'))->get()->keyBy('id');
         return view('watch', compact('gameplays', 'categories', 'users'));

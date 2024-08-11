@@ -52,14 +52,12 @@
                                 <th scope="col">Genre</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Sale</th>
-                                <th scope="col">Availability</th>
                                 <th scope="col">Rating</th>
                                 <th scope="col">User</th>
                                 <th scope="col">Release Year</th>
                                 <th scope="col">Developer</th>
                                 <th scope="col">Platform</th>
                                 <th scope="col">Cover</th>
-                                <th scope="col">Video</th>
                                 <th scope="col">Actions</th>
                               </tr>
                             </thead>
@@ -79,26 +77,22 @@
                                   <span class="badge bg-secondary">Not on Sale</span>
                                   @endif
                                 </td>
-                                <td>
-                                  @if ($game->availability)
-                                  <span class="badge bg-success">Available</span>
-                                  @else
-                                  <span class="badge bg-danger">Unavailable</span>
-                                  @endif
-                                </td>
                                 <td>{{ $game->rating }}</td>
                                 <td>{{ $game->user->name }}</td>
                                 <td>{{ $game->release_year }}</td>
                                 <td>{{ $game->developer }}</td>
                                 <td>{{ $game->platform }}</td>
                                 <td>
-                                  <img src="{{ asset('user/assets/img/gamecovers/'.$game->cover) }}" alt="{{ $game->title }}" width="50">
+                                  <img src="data:image/png;base64,{{ $game->cover }}" alt="{{ $game->title }}" width="50">
                                 </td>
                                 <td>
-                                  <iframe width="80" height="60" src="{{ $game->video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                  <form action="{{ route('admin.games.edit', $game->id) }}" method="GET" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-success">Edit</button>
+                                  </form>
                                 </td>
                                 <td>
-                                  <form action="" method="POST" style="display:inline;">
+                                  <form action="{{ route('admin.games.delete', $game->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">X</button>
