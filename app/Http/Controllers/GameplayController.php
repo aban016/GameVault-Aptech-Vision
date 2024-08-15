@@ -10,6 +10,7 @@ class GameplayController extends Controller
 {
     public function index(){
         $gameplays = Gameplay::all();
+        
         return view('admin.gameplay', compact('gameplays'));
     }
 

@@ -67,6 +67,10 @@
                 <div class="border-bottom mb-20 mt-20"></div>
                 <li> <a class="dashboard2 {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{route('admin.profile')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/profiles.svg') }}" alt="jobBox"><span class="name">My Profiles</span></a>
                 </li>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.soldgames') ? 'active' : '' }}" href="{{route('admin.soldgames')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Sold Games</span></a>
+                </li>
+                <li> <a class="dashboard2 {{ request()->routeIs('admin.reports') ? 'active' : '' }}" href="{{route('admin.reports')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Reports</span></a>
+                </li>
                 <li>
                   <form method="POST" action="{{ route('logout') }}" class="d-inline">
                     @csrf
@@ -98,6 +102,10 @@
           <li> <a class="dashboard2 {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{route('admin.users')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/candidates.svg') }}" alt="jobBox"><span class="name">Our Users</span></a>
           </li>
           <li> <a class="dashboard2 {{ request()->routeIs('admin.gameplay') ? 'active' : '' }}" href="{{route('admin.gameplay')}}"><img src="assets/imgs/page/dashboard/cv-manage.svg" alt="jobBox"><span class="name">GamePlays</span></a>
+          </li>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.soldgames') ? 'active' : '' }}" href="{{route('admin.soldgames')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Sold Games</span></a>
+          </li>
+          <li> <a class="dashboard2 {{ request()->routeIs('admin.reports') ? 'active' : '' }}" href="{{route('admin.reports')}}"><img src="assets/imgs/page/dashboard/tasks.svg" alt="jobBox"><span class="name">Reports</span></a>
           </li>
           <div class="border-bottom mb-20 mt-20"></div>
           <li> <a class="dashboard2 {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{route('admin.profile')}}"><img src="{{ asset('admin/assets/imgs/page/dashboard/profiles.svg') }}" alt="jobBox"><span class="name">My Profiles</span></a>

@@ -72,6 +72,11 @@ Route::middleware('auth', 'admin')->group(function () {
     // Gameplays
     Route::get('admin/gameplay', [GameplayController::class, 'index'])->name('admin.gameplay');
     Route::delete('admin/gameplay/{gameplay}', [CategoryController::class, 'destroy'])->name('admin.gameplay.delete');
+    
+    Route::get('admin/soldgames', [UserGamesController::class, 'soldGames'])->name('admin.soldgames');
+
+    Route::get('admin/reports', [ContactController::class, 'reports'])->name('admin.reports');
+    Route::delete('admin/reports/{id}', [ContactController::class, 'destroy'])->name('admin.report.delete');
 });
 
 // Response page
