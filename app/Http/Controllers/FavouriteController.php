@@ -22,8 +22,6 @@ class FavouriteController extends Controller
 
     public function store($game_id)
     {
-        $game = Favourite::findOrFail($game_id);
-
         $favourite = new Favourite();
         $favourite->user_id = Auth::id();
         $favourite->game_id = $game_id;
@@ -34,8 +32,10 @@ class FavouriteController extends Controller
 
     public function destroy($game_id)
     {
-        $favgame = Favourite::findOrFail($game_id);
-        $favgame->delete();
+        $favGame = Favourite::where('user_id', Auth::id())
+            ->where('game_id', $game_id)
+            ->firstOrFail();
+        $favGame->delete();
         return redirect()->back()->with('message', 'Game remove to favourites!');
     }
 }

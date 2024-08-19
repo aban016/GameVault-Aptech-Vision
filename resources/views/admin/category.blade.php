@@ -38,48 +38,46 @@
             <div class="container">
                 <div class="panel-white">
                     <div class="panel-body">
-                        <div class="card-style-3">
-                            <table class="table" id="categoryTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">S.No</th>
-                                        <th scope="col">Category Name</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Added Date</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $num = 1; @endphp
-                                    @foreach($categories as $category)
-                                    <tr class="table-hover hover-up">
-                                        <td>{{ $num++ }}</td>
-                                        <td>{{ $category->category }}</td>
-                                        <td>
-                                            <form action="{{ route('admin.categories.toggleStatus', $category->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('PATCH')
-                                                @if ($category->is_active)
-                                                <button type="submit" class="btn btn-success btn-sm">Active</button>
-                                                @else
-                                                <button type="submit" class="btn btn-danger btn-sm">Inactive</button>
-                                                @endif
-                                            </form>
+                        <table class="table" id="categoryTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Category Name</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Added Date</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $num = 1; @endphp
+                                @foreach($categories as $category)
+                                <tr class="table-hover hover-up">
+                                    <td>{{ $num++ }}</td>
+                                    <td>{{ $category->category }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.categories.toggleStatus', $category->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PATCH')
+                                            @if ($category->is_active)
+                                            <button type="submit" class="btn btn-success btn-sm">Active</button>
+                                            @else
+                                            <button type="submit" class="btn btn-danger btn-sm">Inactive</button>
+                                            @endif
+                                        </form>
 
-                                        </td>
-                                        <td>{{ $category->created_at->format('Y-m-d') }}</td>
-                                        <td>
-                                            <form action="{{ route('admin.categories.delete', $category->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">X</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                    </td>
+                                    <td>{{ $category->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.categories.delete', $category->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">X</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

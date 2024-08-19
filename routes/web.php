@@ -29,7 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('user/profile', [UsersController::class, 'profile'])->name('user.profile');
     Route::get('user/favourites', [FavouriteController::class, 'index'])->name('user.favourite');
-    Route::get('user/favourites/{game_id}', [FavouriteController::class, 'store'])->name('user.favourite.add');
+    Route::post('user/favourites/{game_id}', [FavouriteController::class, 'store'])->name('user.favourite.add');
     Route::get('user/favourites/{game_id}/delete', [FavouriteController::class, 'destroy'])->name('user.favourite.remove');
     Route::get('user/library', [UserGamesController::class, 'index'])->name('user.library');
     Route::get('user/library/{game_id}/delete', [UserGamesController::class, 'destroy'])->name('user.library.remove');

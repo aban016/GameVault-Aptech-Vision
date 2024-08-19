@@ -24,29 +24,27 @@
             <div class="container">
                 <div class="panel-white">
                     <div class="panel-body">
-                        <div class="card-style-3">
-                            <table class="table" id="soldGamesTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">S.No</th>
-                                        <th scope="col">Game</th>
-                                        <th scope="col">Purchased by</th>
-                                        <th scope="col">Added Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $num = 1; @endphp
-                                    @foreach($soldGames as $game)
-                                    <tr class="table-hover hover-up">
-                                        <td>{{ $num++ }}</td>
-                                        <td>{{ $game->title }}</td>
-                                        <td>{{ $game->name }}</td>
-                                        <td>{{ $game->created_at->format('Y-m-d') }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table" id="soldGamesTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Game</th>
+                                    <th scope="col">Purchased by</th>
+                                    <th scope="col">Added Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $num = 1; @endphp
+                                @foreach($soldGames as $game)
+                                <tr class="table-hover hover-up">
+                                    <td>{{ $num++ }}</td>
+                                    <td>{{ $game->title }}</td>
+                                    <td>{{ $game->name }}</td>
+                                    <td>{{ $game->created_at->format('Y-m-d') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

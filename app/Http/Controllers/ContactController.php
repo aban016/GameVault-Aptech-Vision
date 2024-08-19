@@ -18,9 +18,10 @@ class ContactController extends Controller
     public function reports()
     {
         $contacts = Contact::join('users', 'contact.contact_by', '=', 'users.id')
-            ->get([
+            ->orderBy('created_at', 'desc')->get([
                 'contact.*',   
-                'users.name'     
+                'users.name',
+                'users.email'   
             ]);
 
 

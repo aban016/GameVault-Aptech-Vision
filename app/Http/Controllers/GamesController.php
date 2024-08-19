@@ -14,7 +14,7 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games = Game::all();
+        $games = Game::orderBy('created_at', 'desc')->get();
         return view('admin.games.index', compact('games'));
     }
 

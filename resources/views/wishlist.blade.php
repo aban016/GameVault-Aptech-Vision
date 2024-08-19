@@ -74,8 +74,8 @@
                                     <a href="{{ route('games.show', ['id' => $game->id]) }}" class="btn btn-default btn-brand" rel="join">Purchase</a>
                                     @endif
                                 </div>
-                                
-                                <a href="{{ route('user.favourite.remove', ['game_id' => $game->id]) }}" class="text-danger fw-bold p-3">Remove to favourites</a>
+
+                                <a href="{{ route('user.favourite.remove', ['game_id' => $game->id]) }}" class="text-danger fw-bold p-3">Remove from favourites</a>
                             </div>
 
                         </div>

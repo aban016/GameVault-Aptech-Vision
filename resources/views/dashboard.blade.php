@@ -13,7 +13,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner1.png') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner1.png') }}" style="object-fit: cover;" alt="banner"></a>
 
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner2.png') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner2.png') }}" style="object-fit: cover;" alt="banner"></a>
 
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner3.png') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner3.png') }}" style="object-fit: cover;" alt="banner"></a>
 
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner4.png') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner4.png') }}" style="object-fit: cover;" alt="banner"></a>
 
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner5.png') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner5.png') }}" style="object-fit: cover;" alt="banner"></a>
 
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner6.png') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner6.png') }}"  style="object-fit: cover;" alt="banner"></a>
 
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                     <div class="swiper-slide">
                         <div class="recommend-slide">
                             <div class="tour-slide__box">
-                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner7.png') }}" alt="banner"></a>
+                                <a href="#"><img src="{{ asset('user/assets/img/banners/banner7.png') }}"  style="object-fit: cover;" alt="banner"></a>
 
                             </div>
                         </div>

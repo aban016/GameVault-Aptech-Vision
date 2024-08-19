@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('category');
             $table->decimal('price', 10, 2)->nullable();
             $table->boolean('sale')->default(false);
-            $table->decimal('rating', 3, 2)->default(0.00);
+            $table->decimal('rating', 3, 1)->default(0.0);
             $table->unsignedBigInteger('user_id');
             $table->year('release_year');
             $table->string('developer');

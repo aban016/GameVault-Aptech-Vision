@@ -32,41 +32,39 @@
             <div class="container">
                 <div class="panel-white">
                     <div class="panel-body">
-                        <div class="card-style-3">
-                            <table class="table" id="gameplaysTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">S.No</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Video</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Uploaded By</th>
-                                        <th scope="col">Added Date</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $num = 1; @endphp
-                                    @foreach($gameplays as $gameplay)
-                                    <tr class="table-hover hover-up">
-                                        <td>{{ $num++ }}</td>
-                                        <td>{{ $gameplay->title }}</td>
-                                        <td><iframe src="{{ $gameplay->video }}" width="80" height="80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
-                                        <td>{{ $gameplay->category }}</td>
-                                        <td>{{ $gameplay->uploaded_by }}</td>
-                                        <td>{{ $gameplay->created_at->format('Y-m-d') }}</td>
-                                        <td>
-                                            <form action="{{ route('admin.gameplay.delete', $gameplay->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">X</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table" id="gameplaysTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Video</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Uploaded By</th>
+                                    <th scope="col">Added Date</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $num = 1; @endphp
+                                @foreach($gameplays as $gameplay)
+                                <tr class="table-hover hover-up">
+                                    <td>{{ $num++ }}</td>
+                                    <td>{{ $gameplay->title }}</td>
+                                    <td><iframe src="{{ $gameplay->video }}" width="80" height="80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
+                                    <td>{{ $gameplay->category }}</td>
+                                    <td>{{ $gameplay->uploaded_by }}</td>
+                                    <td>{{ $gameplay->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.gameplay.delete', $gameplay->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">X</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

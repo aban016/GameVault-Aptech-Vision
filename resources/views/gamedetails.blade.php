@@ -110,12 +110,15 @@
 
             @if($isFavourite)
             <a href="#" class="uk-button uk-button-favorite uk-width-1-1" style="pointer-events: none; opacity: 0.6;">
-                <span class="ico_add-square"></span><span>Already in Favourites</span>
+                <span class="ico_add-square"></span><span>Added in Favourites</span>
             </a>
             @else
-            <a href="{{ route('user.favourite.add', ['game_id' => $game->id]) }}" class="uk-button uk-button-favorite uk-width-1-1">
-                <span class="ico_add-square"></span><span>Add to Favourites</span>
-            </a>
+            <form action="{{ route('user.favourite.add', ['game_id' => $game->id]) }}" method="POST">
+                @csrf
+                <button type="submit" class="uk-button uk-button-favorite uk-width-1-1">
+                    <span class="ico_add-square"></span><span>Add to Favourites</span>
+                </button>
+            </form>
             @endif
 
         </div>

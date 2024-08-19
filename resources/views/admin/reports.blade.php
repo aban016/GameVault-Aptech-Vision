@@ -34,41 +34,41 @@
             <div class="container">
                 <div class="panel-white">
                     <div class="panel-body">
-                        <div class="card-style-3">
-                            <table class="table" id="reportsTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">S.No</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Subject</th>
-                                        <th scope="col">Details</th>
-                                        <th scope="col">ScreenShot</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php $num = 1; @endphp
-                                    @foreach($contacts as $contact)
-                                    <tr class="table-hover hover-up">
-                                        <td>{{ $num++ }}</td>
-                                        <td>{{ $contact->name }}</td>
-                                        <td>{{ $contact->subject }}</td>
-                                        <td>{{ $contact->detail }}</td>
-                                        <td><img src="data:image/png;base64,{{ $contact->attach_file }}" style="width: 50px; height: 50px;" alt=""></td>
-                                        <td>{{ $contact->created_at->format('Y-m-d') }}</td>
-                                        <td>
-                                            <form action="{{ route('admin.report.delete', $contact->id) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">X</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table" id="reportsTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col">ScreenShot</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $num = 1; @endphp
+                                @foreach($contacts as $contact)
+                                <tr class="table-hover hover-up">
+                                    <td>{{ $num++ }}</td>
+                                    <td>{{ $contact->name }}</td>
+                                    <td>{{ $contact->email }}</td>
+                                    <td>{{ $contact->subject }}</td>
+                                    <td>{{ $contact->detail }}</td>
+                                    <td><img src="data:image/png;base64,{{ $contact->attach_file }}" style="width: 50px; height: 50px;" alt=""></td>
+                                    <td>{{ $contact->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.report.delete', $contact->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">X</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
