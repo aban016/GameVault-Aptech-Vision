@@ -17,6 +17,7 @@ class Gameplay extends Model
     protected $fillable = [
         'title',
         'video',
+        'thumbnail',
         'uploaded_by',
     ];
 

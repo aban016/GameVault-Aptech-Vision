@@ -36,7 +36,9 @@
             <div class="stream-item">
                 <div class="stream-item__box">
                     <div class="stream-item__media" data-uk-lightbox="video-autoplay: true">
-                        <iframe src="{{ $gameplay->video }}" width="800" height="200" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div class="video">
+                            <video src="{{ Storage::url($gameplay->video) }}" controls></video>
+                        </div>
                         <div class="stream-item__info">
                             <div class="stream-item__status">New</div>
                         </div>
@@ -45,7 +47,7 @@
                             <div class="stream-item__nicname">
                                 Uploaded by:
                                 @if(isset($users[$gameplay->uploaded_by]))
-                                {{ $users[$gameplay->uploaded_by]->name }}
+                                <strong>{{ $users[$gameplay->uploaded_by]->name }}</strong>
                                 @else
                                 Unknown
                                 @endif

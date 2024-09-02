@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\UserGamesController;
 use App\Http\Controllers\UsersController;
+use App\Models\Gameplay;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,7 +22,7 @@ Route::get('/free-games', [UsersController::class, 'freeGames'])->name('freeGame
 Route::get('/premium-games', [UsersController::class, 'premiumGames'])->name('premiumGames');
 Route::get('/gamplays', [UsersController::class, 'gameplays'])->name('gameplays');
 Route::post('/gamplays/upload', [GameplayController::class, 'store'])->name('gameplays.upload');
-Route::delete('/gamplays/delete', [GameplayController::class, 'destroy'])->name('gameplays.delete');
+Route::delete('/gamplays/{id}delete', [GameplayController::class, 'delete'])->name('gameplays.delete');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('dashboard');
@@ -34,12 +35,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('user/library', [UserGamesController::class, 'index'])->name('user.library');
     Route::get('user/library/{game_id}/delete', [UserGamesController::class, 'destroy'])->name('user.library.remove');
 
+    Route::post('user/profile/update', [UsersController::class, 'updateProfile'])->name('user.profile.update');
+
     Route::get('games/{id}', [GamesController::class, 'show'])->name('games.show');
 
     Route::post('sending-report', [ContactController::class, 'store'])->name('send.contact');
 
 });
     
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -71,7 +75,10 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.delete');
     // Gameplays
     Route::get('admin/gameplay', [GameplayController::class, 'index'])->name('admin.gameplay');
-    Route::delete('admin/gameplay/{gameplay}', [CategoryController::class, 'destroy'])->name('admin.gameplay.delete');
+    Route::delete('admin/gameplay/{gameplay}', [GameplayController::class, 'destroy'])->name('admin.gameplay.delete');
+    Route::get('/admin/gameplay/{id}', [GameplayController::class, 'show'])->name('admin.gameplay.show');
+
+    Route::get('/admin/gameplay/approve/{id}', [GameplayController::class, 'approve'])->name('admin.gameplay.approve');
     
     Route::get('admin/soldgames', [UserGamesController::class, 'soldGames'])->name('admin.soldgames');
 

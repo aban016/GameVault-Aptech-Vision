@@ -1,0 +1,5 @@
+Update on Playhub
+- Upgrade home ui 
+- forgot password work
+- Upload gameplays with static videos file
+- Profile update in accounts

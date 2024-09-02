@@ -37,11 +37,10 @@
                                 <tr>
                                     <th scope="col">S.No</th>
                                     <th scope="col">Title</th>
-                                    <th scope="col">Video</th>
-                                    <th scope="col">Category</th>
                                     <th scope="col">Uploaded By</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Added Date</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Details</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,16 +49,24 @@
                                 <tr class="table-hover hover-up">
                                     <td>{{ $num++ }}</td>
                                     <td>{{ $gameplay->title }}</td>
-                                    <td><iframe src="{{ $gameplay->video }}" width="80" height="80" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></td>
-                                    <td>{{ $gameplay->category }}</td>
-                                    <td>{{ $gameplay->uploaded_by }}</td>
+                                    <td>
+                                        @if($user = \App\Models\User::find($gameplay->uploaded_by))
+                                        {{ $user->name }}
+                                        @else
+                                        Username not found
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($gameplay->is_approve == false)
+                                        <span class="badge bg-danger">Not Approve</span>
+                                        @else
+                                        <span class="badge bg-success">Approve</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $gameplay->created_at->format('Y-m-d') }}</td>
                                     <td>
-                                        <form action="{{ route('admin.gameplay.delete', $gameplay->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">X</button>
-                                        </form>
+                                        <a href="{{ route('admin.gameplay.show', $gameplay->id) }}" class="btn btn-sm btn-success">show detail</a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('gameplays', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('video');
+            $table->longText('video');
+            $table->longText('thumbnail');
             $table->string('category');
+            $table->boolean('is_approve')->default(false);
             $table->unsignedBigInteger('uploaded_by');
             $table->timestamps();
 
