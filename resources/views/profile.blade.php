@@ -228,14 +228,6 @@
 
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group mb-30">
-                                                    <label class="font-sm mb-10">Thumbnail*</label>
-                                                    <input class="form-control" id="thumbnail" name="thumbnail" type="file" required>
-                                                    <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="form-group mb-30">
                                                     <label class="font-sm mb-10">Video*</label>
                                                     <input class="form-control" id="video" name="video" type="file" required>
                                                     <x-input-error class="mt-2" :messages="$errors->get('video')" />

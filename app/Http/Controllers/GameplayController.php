@@ -21,7 +21,7 @@ class GameplayController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'video' => 'required|file|max:102400', // 100 MB
-            'thumbnail' => 'required|image',
+            'thumbnail' => 'image',
             'category' => 'required|string|max:255',
         ]);
 

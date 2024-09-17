@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('video');
-            $table->longText('thumbnail');
             $table->string('category');
             $table->boolean('is_approve')->default(false);
             $table->unsignedBigInteger('uploaded_by');

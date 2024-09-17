@@ -40,8 +40,11 @@
                             <video src="{{ Storage::url($gameplay->video) }}" controls></video>
                         </div>
                         <div class="stream-item__info">
+                        <!-- Show 'New' badge if the game was uploaded within the last 2 days -->
+                        @if($gameplay->created_at->diffInDays(now()) <= 1)
                             <div class="stream-item__status">New</div>
-                        </div>
+                        @endif
+                    </div>
                         <div class="stream-item__body">
                             <div class="stream-item__title">{{ $gameplay->title }}</div>
                             <div class="stream-item__nicname">
