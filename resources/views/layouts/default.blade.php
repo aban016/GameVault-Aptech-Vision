@@ -104,7 +104,7 @@
                                     }
                                     @endphp
 
-                                    <img src="{{ $profilePicUrl }}" alt="profile" class="profile">
+                                    <img src="{{ $profilePicUrl }}" alt="profile" class="profile" style="border-radius: 50px;">
 
                                     Hi, {{ Auth::user()->name }}
                                     <span uk-icon="icon: triangle-down"></span>
